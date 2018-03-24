@@ -10,9 +10,9 @@ namespace ConsoleApp1
     {
         public static Greed_Grid greedy_grid = new Greed_Grid();
         public static LocalMatrixes localMatrixes = new LocalMatrixes();
+        public static FE fe = new FE(ref greedy_grid);
         public New_FEM()
         {
-
         }
     }
 }

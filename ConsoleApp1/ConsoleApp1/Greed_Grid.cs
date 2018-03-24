@@ -101,7 +101,7 @@ namespace ConsoleApp1
         public Axe AxeX = new Axe(), AxeY = new Axe(), AxeZ = new Axe();
         public void reading_sreda()
         {
-            string Path = ProjectPath + "\\Grid\\Environment.txt";
+            string Path = ProjectPath + "\\InsertedInfo\\Environment.txt";
             using (StreamReader inputFile = new StreamReader(Path))
             {
                 //Настало время Осей.
@@ -194,13 +194,13 @@ namespace ConsoleApp1
             return Temp;
         }
     }
-    class Greed_Grid : Shared_Field
+    public class Greed_Grid : Shared_Field
     {
         static string ClassPath = ProjectPath + "\\Grid";
         
         public Sreda areas = new Sreda();
 
-        List<double> OS_X, OS_Y, OS_Z;
+        public List<double> OS_X, OS_Y, OS_Z;
         public Greed_Grid()
         {
             OS_X = areas.AxeGenerating(ref areas.AxeX);
