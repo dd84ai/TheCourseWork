@@ -14,7 +14,7 @@ namespace ConsoleApp1
         public static GlobalMatrix GM = new GlobalMatrix(ref fe);
         public New_FEM()
         {
-            Console.Write("");
+            Console.Write("123");
         }
     }
 }
