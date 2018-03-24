@@ -8,10 +8,15 @@ namespace ConsoleApp1
 {
     class Program
     {
+        static Interface I = new Interface();
         static void Main()
         {
-            Old_Fem old_Fem = new Old_Fem();
+            I.Greetings();
 
+            //Old_Fem old_Fem = new Old_Fem();
+            New_FEM new_FEM = new New_FEM();
+
+            I.Pause();
         }
     }
 }

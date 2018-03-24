@@ -14,7 +14,7 @@ namespace ConsoleApp1
         public void Greetings()
         {
             Colorator("Yay!", ConsoleColor.Yellow);
-            Colorator("Designation: 5sem_4islemetod_RGR", ConsoleColor.Magenta);
+            Colorator("Designation: 8sem_TheCourseWork", ConsoleColor.Magenta);
         }
         public void Colorator(string str, ConsoleColor color)
         {

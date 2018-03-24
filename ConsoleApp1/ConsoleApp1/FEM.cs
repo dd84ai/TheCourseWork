@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    class FEM
+    class New_FEM
     {
+        Greed_Grid greedy_grid = new Greed_Grid();
+        public New_FEM()
+        {
+
+        }
     }
 }
