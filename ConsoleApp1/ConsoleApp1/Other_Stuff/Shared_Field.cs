@@ -50,16 +50,13 @@ namespace ConsoleApp1
             {
                 Console.WriteLine("______________________________________________");
                 Console.WriteLine("______________________________________________");
-                int quality_total = 0, quality_saved = 0;
+                int quality_total = 0;
                 for (int i = 0; i < Target_vector.Count(); i++)
                 {
                     outputFile.WriteLine("{0:E15}", Target_vector[i]);
                     //outputFile.WriteLine(Target_vector[i].ToString().Replace(',', '.'));
-                    quality_saved++;
-                    quality_total++;
                 }
                 Console.WriteLine("Total = {0}", quality_total);
-                Console.WriteLine("Saved = {0}", quality_saved);
             }
 
             //+full
