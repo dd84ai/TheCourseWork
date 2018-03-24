@@ -12,10 +12,17 @@ namespace ConsoleApp1
     public class FE
     {
         Greed_Grid greedy_grid;
+        /// <summary>
+        /// Size_of_global_matrix
+        /// </summary>
+        public int Size;
         public FE(ref Greed_Grid _greedy_grid)
         {
             greedy_grid = _greedy_grid;
             Generating_FE_List(ref greedy_grid.OS_X, ref greedy_grid.OS_Y, ref greedy_grid.OS_Z);
+            Size = (greedy_grid.OS_X.Count() - 1) *
+                (greedy_grid.OS_Y.Count() - 1) *
+                (greedy_grid.OS_Z.Count() - 1);
         }
         public class cell_of_FE
         {
@@ -47,6 +54,7 @@ namespace ConsoleApp1
             }
         }
         List<bounder> elems_which_bounders = new List<bounder>();
+
         void Generating_FE_List(ref List<double> X, ref List<double> Y, ref List<double> Z)
         {
             int element_counter = 0;

@@ -13,6 +13,7 @@ namespace ConsoleApp1
         public static FE fe = new FE(ref greedy_grid);
         public New_FEM()
         {
+            Console.Write("");
         }
     }
 }
