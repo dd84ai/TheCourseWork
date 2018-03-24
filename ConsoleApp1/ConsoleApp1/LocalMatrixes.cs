@@ -38,19 +38,23 @@ namespace ConsoleApp1
     }
     public class LocalMatrix_MiniLocals : LocalMatrixes_DefaultInfo
     {
-        public List<List<double>> Gi(double hz)
+        public static List<List<double>> Gi(double hz)
         {
             return new List<List<double>>()
             { new List<double>() { (double)1/ hz, (double)-1/hz },
                 new List<double>() { (double)-1 / hz, (double)1 / hz } };
         }
-        public List<List<double>> Mi(double hz)
+        public static List<List<double>> Mi(double hz)
         {
             return new List<List<double>>()
             { new List<double>() { (double)1 * hz, (double)-1 * hz },
                 new List<double>() { (double)-1 * hz, (double)1 * hz } };
         }
-        public List<List<double>> M_filled(double gamma, List<List<double>> Mx, List<List<double>> My, List<List<double>> Mz)
+        
+    }
+    public class LocalMatrixes : LocalMatrix_MiniLocals
+    {
+        static List<List<double>> M_filled(double gamma, ref List<List<double>> Mx, ref List<List<double>> My, ref List<List<double>> Mz)
         {
             List<List<double>> Answer = new List<List<double>>();
 
@@ -63,7 +67,7 @@ namespace ConsoleApp1
                     //Console.WriteLine($"u:{local_numeric.u(i)};{local_numeric.u(j)}");
                     //Console.WriteLine($"v:{local_numeric.v(i)};{local_numeric.v(j)}");
                     //Console.WriteLine($"g:{local_numeric.g(i)};{local_numeric.g(j)}");
-                    Answer[i].Add(gamma 
+                    Answer[i].Add(gamma
                         * Mx[local_numeric.u(i)][local_numeric.u(j)]
                         * My[local_numeric.v(i)][local_numeric.v(j)]
                         * Mz[local_numeric.g(i)][local_numeric.g(j)]);
@@ -71,7 +75,7 @@ namespace ConsoleApp1
             }
             return Answer;
         }
-        public List<List<double>> G_filled(double lyambda, List<List<double>> Mx, List<List<double>> My, List<List<double>> Mz, List<List<double>> Gx, List<List<double>> Gy, List<List<double>> Gz)
+        static List<List<double>> G_filled(double lyambda, ref List<List<double>> Mx, ref List<List<double>> My, ref List<List<double>> Mz, ref List<List<double>> Gx, ref List<List<double>> Gy, ref List<List<double>> Gz)
         {
             List<List<double>> Answer = new List<List<double>>();
 
@@ -86,7 +90,7 @@ namespace ConsoleApp1
                             Gx[local_numeric.u(i)][local_numeric.u(j)]
                             * My[local_numeric.v(i)][local_numeric.v(j)]
                             * Mz[local_numeric.g(i)][local_numeric.g(j)]
-                            )+
+                            ) +
                             (
                             Mx[local_numeric.u(i)][local_numeric.u(j)]
                             * Gy[local_numeric.v(i)][local_numeric.v(j)]
@@ -103,20 +107,15 @@ namespace ConsoleApp1
             }
             return Answer;
         }
-    }
-    public class LocalMatrixes : LocalMatrix_MiniLocals
-    {
-        
+        public static void I_desire_to_resive_M_and_G(ref List<List<double>> M, ref List<List<double>> G, double Gamma, double Lyambda, double hx, double hy, double hz)
+        {
+            List<List<double>> Mx = Mi(hx), My = Mi(hy), Mz = Mi(hz);
+            List<List<double>> Gx = Gi(hx), Gy = Gi(hy), Gz = Gi(hz);
+            M = M_filled(Gamma, ref Mx, ref My, ref Mz);
+            G = G_filled(Lyambda, ref Mx, ref My, ref Mz, ref Gx, ref Gy, ref Gz);
+        }
         public LocalMatrixes()
         {
-            double Gamma = 1;
-            double Lyambda = 1;
-            double hx = 0.25, hy = 0.2, hz = 0.1;
-
-            List<List<double>> Mx = Mi(hx), My = Mi(hy), Mz = Mi(hz);
-            List<List<double>> M = M_filled(Gamma, Mx, My, Mz);
-            List<List<double>> G = G_filled(Lyambda, Mx, My, Mz, Gi(hx), Gi(hy), Gi(hz));
-
             Console.Write("");
         }
     }

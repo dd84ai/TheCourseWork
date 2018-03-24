@@ -11,7 +11,7 @@ namespace ConsoleApp1
     /// </summary>
     public class FE
     {
-        Greed_Grid greedy_grid;
+        public Greed_Grid greedy_grid;
         /// <summary>
         /// Size_of_global_matrix
         /// </summary>
@@ -57,15 +57,13 @@ namespace ConsoleApp1
 
         void Generating_FE_List(ref List<double> X, ref List<double> Y, ref List<double> Z)
         {
-            int element_counter = 0;
-            for (int i = 0; i < X.Count() - 1; i++)
+            for (int i = 0, element_counter = 0; i < X.Count() - 1; i++)
                 for (int j = 0; j < Y.Count() - 1; j++)
-                    for (int k = 0; k < Z.Count() - 1; k++)
+                    for (int k = 0; k < Z.Count() - 1; k++, element_counter++)
                     {
                         //elems.Add(new cell_of_FE(X[i], X[i + 1],
                         //   Y[j], Y[j + 1],
                         //    Z[k], Z[k + 1]));
-                        element_counter++;
 
                         if (i == 0)             elems_which_bounders.Add(new bounder(element_counter, Sides.left));
                         if (i == X.Count() - 2) elems_which_bounders.Add(new bounder(element_counter, Sides.right));

@@ -9,8 +9,9 @@ namespace ConsoleApp1
     class New_FEM
     {
         public static Greed_Grid greedy_grid = new Greed_Grid();
-        public static LocalMatrixes localMatrixes = new LocalMatrixes();
+        //No reason to declare//public static LocalMatrixes localMatrixes = new LocalMatrixes();
         public static FE fe = new FE(ref greedy_grid);
+        public static GlobalMatrix GM = new GlobalMatrix(ref fe);
         public New_FEM()
         {
             Console.Write("");

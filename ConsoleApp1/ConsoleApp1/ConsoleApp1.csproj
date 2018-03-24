@@ -43,7 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FE.cs" />
+    <Compile Include="GlobalMatrix.cs" />
     <Compile Include="Greed_Grid.cs" />
+    <Compile Include="InsertedInfo\InsertedInfo.cs" />
     <Compile Include="Other_Stuff\Interface.cs" />
     <Compile Include="New_FEM.cs" />
     <Compile Include="LocalMatrixes.cs" />
