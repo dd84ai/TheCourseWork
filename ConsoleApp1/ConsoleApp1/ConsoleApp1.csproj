@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dense_Straight_Solver.cs" />
+    <Compile Include="Solvers\Dense_Straight_Solver.cs" />
     <Compile Include="FE.cs" />
     <Compile Include="GlobalMatrix.cs" />
     <Compile Include="Greed_Grid.cs" />
@@ -54,6 +54,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Other_Stuff\Shared_Field.cs" />
+    <Compile Include="Solvers\Sparse_Straight_Solver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

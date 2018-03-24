@@ -22,11 +22,21 @@ namespace ConsoleApp1
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public static double U_analit(double x, double y, double z) { return x + y + z; }
         public static double f(double x, double y, double z)
         {
             return Gamma * (x + y + z);
             //return 0;
+        }
+        /// <summary>
+        /// F
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
+        public static double U_analit(double x, double y, double z)
+        {
+            return x + y + z;
         }
     }
 }

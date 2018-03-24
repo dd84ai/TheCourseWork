@@ -26,7 +26,7 @@ namespace ConsoleApp1
             A_tranfroming_into_dense_LU();
             Solve();
         }
-        static void A_tranfroming_into_dense_LU()
+        void A_tranfroming_into_dense_LU()
         {
             for (int i = 0; i < Size; i++)
             {
