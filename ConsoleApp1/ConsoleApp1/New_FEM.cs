@@ -8,7 +8,8 @@ namespace ConsoleApp1
 {
     class New_FEM
     {
-        Greed_Grid greedy_grid = new Greed_Grid();
+        public static Greed_Grid greedy_grid = new Greed_Grid();
+        public static LocalMatrixes localMatrixes = new LocalMatrixes();
         public New_FEM()
         {
 
