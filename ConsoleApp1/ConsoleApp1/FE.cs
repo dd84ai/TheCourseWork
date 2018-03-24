@@ -20,9 +20,9 @@ namespace ConsoleApp1
         {
             greedy_grid = _greedy_grid;
             Generating_FE_List(ref greedy_grid.OS_X, ref greedy_grid.OS_Y, ref greedy_grid.OS_Z);
-            Size = (greedy_grid.OS_X.Count() - 1) *
-                (greedy_grid.OS_Y.Count() - 1) *
-                (greedy_grid.OS_Z.Count() - 1);
+            Size = (greedy_grid.OS_X.Count()) *
+                (greedy_grid.OS_Y.Count()) *
+                (greedy_grid.OS_Z.Count());
         }
         public class cell_of_FE
         {
@@ -45,7 +45,7 @@ namespace ConsoleApp1
         public enum Sides { left, right, bottom, top, front, back }
         public class bounder
         {
-            int fe_number;
+            public int fe_number;
             public Sides side;
             public bounder(int _fe_number, Sides _side)
             {
@@ -53,24 +53,29 @@ namespace ConsoleApp1
                 side = _side;
             }
         }
-        List<bounder> elems_which_bounders = new List<bounder>();
+        public List<bounder> elems_which_bounders = new List<bounder>();
 
         void Generating_FE_List(ref List<double> X, ref List<double> Y, ref List<double> Z)
         {
-            for (int i = 0, element_counter = 0; i < X.Count() - 1; i++)
-                for (int j = 0; j < Y.Count() - 1; j++)
-                    for (int k = 0; k < Z.Count() - 1; k++, element_counter++)
+            for (int i = 0, element_counter = 0; i < X.Count(); i++)
+                for (int j = 0; j < Y.Count(); j++)
+                    for (int k = 0; k < Z.Count(); k++, element_counter++)
                     {
                         //elems.Add(new cell_of_FE(X[i], X[i + 1],
                         //   Y[j], Y[j + 1],
                         //    Z[k], Z[k + 1]));
 
                         if (i == 0)             elems_which_bounders.Add(new bounder(element_counter, Sides.left));
-                        if (i == X.Count() - 2) elems_which_bounders.Add(new bounder(element_counter, Sides.right));
+                        else
+                        if (i == X.Count() - 1) elems_which_bounders.Add(new bounder(element_counter, Sides.right));
+                        else
                         if (j == 0)             elems_which_bounders.Add(new bounder(element_counter, Sides.bottom));
-                        if (j == Y.Count() - 2) elems_which_bounders.Add(new bounder(element_counter, Sides.top));
+                        else
+                        if (j == Y.Count() - 1) elems_which_bounders.Add(new bounder(element_counter, Sides.top));
+                        else
                         if (k == 0)             elems_which_bounders.Add(new bounder(element_counter, Sides.front));
-                        if (k == Z.Count() - 2) elems_which_bounders.Add(new bounder(element_counter, Sides.back));
+                        else
+                        if (k == Z.Count() - 1) elems_which_bounders.Add(new bounder(element_counter, Sides.back));
                     }
             Console.WriteLine();
         }

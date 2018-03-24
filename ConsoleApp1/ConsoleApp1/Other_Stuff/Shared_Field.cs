@@ -12,7 +12,7 @@ namespace ConsoleApp1
     public class Shared_Field
     {
         public static string ProjectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-        public string StringExtraSpaceRemover(string NeedToBeSplitted)
+        public static string StringExtraSpaceRemover(string NeedToBeSplitted)
         {
             string NewNeed = NeedToBeSplitted;
             string OldNeed = " ";
@@ -24,7 +24,7 @@ namespace ConsoleApp1
 
             return NewNeed;
         }
-        public string[] StringSplitter(string SplitTarget)
+        public static string[] StringSplitter(string SplitTarget)
         {
             string NeedToBeSplitted = SplitTarget;
             NeedToBeSplitted = NeedToBeSplitted.Replace('.', System.Globalization.NumberFormatInfo.CurrentInfo.NumberDecimalSeparator[0]);
@@ -32,6 +32,17 @@ namespace ConsoleApp1
             NeedToBeSplitted = NeedToBeSplitted.Replace('\t', ' ');
             var Splitted = StringExtraSpaceRemover(NeedToBeSplitted).Split(' ');
             return Splitted;
+        }
+        public static List<List<double>> Init_matrix(int size)
+        {
+            List<List<double>> Temp = new List<List<double>>();
+            for (int i = 0; i < size; i++)
+                Temp.Add(new List<double>(new double[size]));
+            return Temp;
+        }
+        public static List<double> Init_vector(int size)
+        {
+            return new List<double>(new double[size]);
         }
     }
 }

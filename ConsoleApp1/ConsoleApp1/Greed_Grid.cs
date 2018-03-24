@@ -9,7 +9,7 @@ using System.IO;//files
 
 namespace ConsoleApp1
 {
-    public class Sreda : Shared_Field
+    public class Sreda
     {
         public int Quanitity_of_areas = 0;
 
@@ -63,17 +63,17 @@ namespace ConsoleApp1
         public void ReadAxe(StreamReader inputFile, ref Axe TargetAxe)
         {
             string Trash = inputFile.ReadLine(); Trash = inputFile.ReadLine();
-            string[] Splitted = StringSplitter(inputFile.ReadLine());
+            string[] Splitted = Shared_Field.StringSplitter(inputFile.ReadLine());
             TargetAxe.StartPoint = System.Convert.ToDouble(Splitted[0]);
             TargetAxe.Quantity = System.Convert.ToInt32(Splitted[1]);
 
-            string[] SplittedX = StringSplitter(inputFile.ReadLine());
+            string[] SplittedX = Shared_Field.StringSplitter(inputFile.ReadLine());
             Trash = inputFile.ReadLine();
-            string[] SplittedStep = StringSplitter(inputFile.ReadLine());
+            string[] SplittedStep = Shared_Field.StringSplitter(inputFile.ReadLine());
             Trash = inputFile.ReadLine();
-            string[] SplittedRazryadka = StringSplitter(inputFile.ReadLine());
+            string[] SplittedRazryadka = Shared_Field.StringSplitter(inputFile.ReadLine());
             Trash = inputFile.ReadLine();
-            string[] SplittedForwardOrBacward = StringSplitter(inputFile.ReadLine());
+            string[] SplittedForwardOrBacward = Shared_Field.StringSplitter(inputFile.ReadLine());
             for (int i = 0, end = TargetAxe.Quantity; i < end; i++)
             {
                 TargetAxe.x.Add(System.Convert.ToDouble(SplittedX[i]));
@@ -112,7 +112,7 @@ namespace ConsoleApp1
 
                 {
                     Trash = inputFile.ReadLine();
-                    string[] Splitted = StringSplitter(inputFile.ReadLine());
+                    string[] Splitted = Shared_Field.StringSplitter(inputFile.ReadLine());
                     AxeX.DoubleToAxe = System.Convert.ToInt32(Splitted[0]);
                     AxeY.DoubleToAxe = System.Convert.ToInt32(Splitted[1]);
                     AxeZ.DoubleToAxe = System.Convert.ToInt32(Splitted[2]);
@@ -195,9 +195,9 @@ namespace ConsoleApp1
             return Temp;
         }
     }
-    public class Greed_Grid : Shared_Field
+    public class Greed_Grid
     {
-        static string ClassPath = ProjectPath + "\\Grid";
+        static string ClassPath = Shared_Field.ProjectPath + "\\Grid";
         
         public Sreda areas = new Sreda();
 

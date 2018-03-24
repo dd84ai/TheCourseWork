@@ -17,9 +17,14 @@ namespace ConsoleApp1
             gg = fe.greedy_grid;
             lm = _locmat;
 
+            //Инициализировали сразу нулями.
+            A_dense = Shared_Field.Init_matrix(fe.Size);
+            F_dense = Shared_Field.Init_vector(fe.Size);
+
             Wrapped_Global_Matrix_Constructer();
         }
-
+        List<List<double>> A_dense;
+        List<double> F_dense;
         
 
         /// <summary>
@@ -40,7 +45,7 @@ namespace ConsoleApp1
             List<List<double>> M = new List<List<double>>();
             List<List<double>> G = new List<List<double>>();
             List<double> b = new List<double>(new double[8]);
-            List<int> Indexes = new List<int>(new int[8]);
+            List<int> ind = new List<int>(new int[8]);
 
             for (int i = 0, element_counter = 0; i < X.Count() - 1; i++)
                 for (int j = 0; j < Y.Count() - 1; j++)
@@ -49,11 +54,71 @@ namespace ConsoleApp1
                         lm.I_desire_to_recieve_M_and_G(ref M, ref G, ref b,
                 InsertedInfo.Gamma, InsertedInfo.Lyambda, i, j, k);
 
-                        I_desire_to_recieve_my_indexes(ref Indexes, i, j, k);
+                        I_desire_to_recieve_my_indexes(ref ind,i, j, k);
 
-
+                        if (InsertedInfo.Dense)
+                        {
+                            for (int h = 0; h < 8; h++)
+                                for (int m = 0; m < 8; m++)
+                                {
+                                    A_dense[ind[h]][ind[m]] += G[h][m] + M[h][m];
+                                }
+                            //F
+                            for (int l = 0; l < 4; l++)
+                                F_dense[ind[l]] += b[l];
+                        }
 
                     }
+
+            if (InsertedInfo.Dense) Bounaries_activate_dense();
+        }
+        void Bounaries_activate_dense()
+        {
+            int counter = 0;
+            foreach (var boundary in fe.elems_which_bounders)
+            {
+                counter++;
+                if (counter == fe.elems_which_bounders.Count())
+                {
+                    Console.Write("");
+                }
+                for (int i = 0; i < A_dense[boundary.fe_number].Count(); i++)
+                {
+                    if (i == boundary.fe_number) A_dense[boundary.fe_number][i] = 1;
+                    else A_dense[boundary.fe_number][i] = 0;
+                }
+
+                int x_index = Reverse_global_number_to_x_index(boundary.fe_number);
+                int y_index = Reverse_global_number_to_y_index(boundary.fe_number);
+                int z_index = Reverse_global_number_to_z_index(boundary.fe_number);
+
+                F_dense[boundary.fe_number] = InsertedInfo.U_analit(gg.OS_X[x_index], gg.OS_Y[y_index], gg.OS_Z[z_index]);
+            }
+        }
+        /*
+         * x_index = j % X.Count(); //x = 2;
+           y_index = j / X.Count(); //y = 1;
+           f_value = U_analit(X[x_index], Y[y_index]);
+         */
+        int Reverse_global_number_to_x_index(int global)
+        {
+            return (
+                (global % (gg.OS_X.Count() * gg.OS_Y.Count()))
+                % gg.OS_X.Count()
+                );
+        }
+        int Reverse_global_number_to_y_index(int global)
+        {
+            return (
+                (global % (gg.OS_X.Count() * gg.OS_Y.Count()))
+                / gg.OS_X.Count()
+                );
+        }
+        int Reverse_global_number_to_z_index(int global)
+        {
+            return (
+                (global / (gg.OS_X.Count() * gg.OS_Y.Count()))
+                );
         }
         void I_desire_to_recieve_my_indexes(ref List<int> ind, int i, int j, int k)
         {
