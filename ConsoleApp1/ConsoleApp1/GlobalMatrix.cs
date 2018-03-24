@@ -10,21 +10,17 @@ namespace ConsoleApp1
     {
         FE fe;
         Greed_Grid gg;
-        public GlobalMatrix(ref FE _fe)
+        LocalMatrixes lm;
+        public GlobalMatrix(ref FE _fe, ref LocalMatrixes _locmat)
         {
             fe = _fe;
             gg = fe.greedy_grid;
+            lm = _locmat;
 
             Wrapped_Global_Matrix_Constructer();
         }
-        
 
-        /// <summary>
-        /// Temporal Trash
-        /// </summary>
-        List<List<double>> M = new List<List<double>>();
-        List<List<double>> G = new List<List<double>>();
-        List<int> Indexes = new List<int>();
+        
 
         /// <summary>
         /// Also obvious thing
@@ -38,24 +34,28 @@ namespace ConsoleApp1
         /// </summary>
         void Constructing_Global_Matrix(ref List<double> X, ref List<double> Y, ref List<double> Z)
         {
+            /// <summary>
+            /// Temporal Trash for Global Matrix Constructing
+            /// </summary>
+            List<List<double>> M = new List<List<double>>();
+            List<List<double>> G = new List<List<double>>();
+            List<double> b = new List<double>(new double[8]);
+            List<int> Indexes = new List<int>(new int[8]);
+
             for (int i = 0, element_counter = 0; i < X.Count() - 1; i++)
                 for (int j = 0; j < Y.Count() - 1; j++)
                     for (int k = 0; k < Z.Count() - 1; k++, element_counter++)
                     {
-                        double hx = X[i + 1] - X[i];
-                        double hy = X[i + 1] - X[i];
-                        double hz = X[i + 1] - X[i];
+                        lm.I_desire_to_recieve_M_and_G(ref M, ref G, ref b,
+                InsertedInfo.Gamma, InsertedInfo.Lyambda, i, j, k);
 
-                        LocalMatrixes.I_desire_to_resive_M_and_G(ref M, ref G,
-                InsertedInfo.Gamma, InsertedInfo.Lyambda, hx, hy, hz);
-
-                        I_deside_to_recieve_my_indexes(ref Indexes, i, j, k);
+                        I_desire_to_recieve_my_indexes(ref Indexes, i, j, k);
 
 
 
                     }
         }
-        void I_deside_to_recieve_my_indexes(ref List<int> ind, int i, int j, int k)
+        void I_desire_to_recieve_my_indexes(ref List<int> ind, int i, int j, int k)
         {
             int i0 = i;
             int i1 = i + 1;

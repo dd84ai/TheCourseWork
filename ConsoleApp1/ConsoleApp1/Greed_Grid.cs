@@ -104,13 +104,14 @@ namespace ConsoleApp1
             string Path = ProjectPath + "\\InsertedInfo\\Environment.txt";
             using (StreamReader inputFile = new StreamReader(Path))
             {
+                string Trash = inputFile.ReadLine();
                 //Настало время Осей.
                 ReadAxe(inputFile, ref AxeX);
                 ReadAxe(inputFile, ref AxeY);
                 ReadAxe(inputFile, ref AxeZ);
 
                 {
-                    string Trash = inputFile.ReadLine();
+                    Trash = inputFile.ReadLine();
                     string[] Splitted = StringSplitter(inputFile.ReadLine());
                     AxeX.DoubleToAxe = System.Convert.ToInt32(Splitted[0]);
                     AxeY.DoubleToAxe = System.Convert.ToInt32(Splitted[1]);

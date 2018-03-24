@@ -1,3 +1,4 @@
+//------------Читается только первая сетка--------------
 //Grid.OS.X=============================================
 //Starting Point, Quantity of points
 1.00e-0 4
@@ -31,7 +32,10 @@
 //Shattering=============================================
 0 0 0
 
-///------------------------------------------------------
+
+
+
+///---------Пример сетки по сложнее---------------------------
 //Grid.OS.X=============================================
 //Starting Point, Quantity of points
 1.00e-0 6
@@ -58,6 +62,43 @@
 2.0e-0	3.0e-0
 //Starting Step
 0.25	0.25		
+//Coefficient of Discharge
+1.0		1.0
+//Direction of Discharge
+1		1	
+//Shattering=============================================
+0 0 0
+
+
+
+
+//----------Пример сетки полегче----------------------
+//Grid.OS.X=============================================
+//Starting Point, Quantity of points
+1.00e-0 4
+2.0e-0	3.0e-0	4.0e-0	5.0e-0
+//Starting Step
+0.5	0.5	0.5		0.5		
+//Coefficient of Discharge
+1.0		1.0 	1.0		1.0		
+//Direction of Discharge
+1		1		1			1					
+//Grid.OS.Y=============================================
+//Starting Point, Quantity of points
+1.00e-0 4
+2.0e-0	3.0e-0	4.0e-0	5.0e-0
+//Starting Step
+0.5	0.5	0.5		0.5		
+//Coefficient of Discharge
+1.0		1.0 	1.0		1.0		
+//Direction of Discharge
+1		1		1			1
+//Grid.OS.Z=============================================
+//Starting Point, Quantity of points
+1.00e-0 2
+2.0e-0	3.0e-0
+//Starting Step
+0.5	0.5		
 //Coefficient of Discharge
 1.0		1.0
 //Direction of Discharge
