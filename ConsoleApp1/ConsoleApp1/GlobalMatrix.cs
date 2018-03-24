@@ -8,9 +8,9 @@ namespace ConsoleApp1
 {
     class GlobalMatrix
     {
-        FE fe;
-        Greed_Grid gg;
-        LocalMatrixes lm;
+        public FE fe;
+        public Greed_Grid gg;
+        public LocalMatrixes lm;
         public GlobalMatrix(ref FE _fe, ref LocalMatrixes _locmat)
         {
             fe = _fe;
@@ -23,8 +23,8 @@ namespace ConsoleApp1
 
             Wrapped_Global_Matrix_Constructer();
         }
-        List<List<double>> A_dense;
-        List<double> F_dense;
+        public List<List<double>> A_dense;
+        public List<double> F_dense;
         
 
         /// <summary>
@@ -95,11 +95,6 @@ namespace ConsoleApp1
                 F_dense[boundary.fe_number] = InsertedInfo.U_analit(gg.OS_X[x_index], gg.OS_Y[y_index], gg.OS_Z[z_index]);
             }
         }
-        /*
-         * x_index = j % X.Count(); //x = 2;
-           y_index = j / X.Count(); //y = 1;
-           f_value = U_analit(X[x_index], Y[y_index]);
-         */
         int Reverse_global_number_to_x_index(int global)
         {
             return (

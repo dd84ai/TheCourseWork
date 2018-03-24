@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dense_Straight_Solver.cs" />
     <Compile Include="FE.cs" />
     <Compile Include="GlobalMatrix.cs" />
     <Compile Include="Greed_Grid.cs" />

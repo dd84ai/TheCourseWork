@@ -12,6 +12,7 @@ namespace ConsoleApp1
         public static LocalMatrixes localMatrixes = new LocalMatrixes(ref greedy_grid);
         public static FE fe = new FE(ref greedy_grid);
         public static GlobalMatrix GM = new GlobalMatrix(ref fe,ref localMatrixes);
+        public static Dense_Straight_Solver DSS = new Dense_Straight_Solver(ref GM);
         public New_FEM()
         {
             Console.Write("");
