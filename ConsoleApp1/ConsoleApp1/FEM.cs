@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    class Program
+    class FEM
     {
-        static void Main()
-        {
-            Old_Fem old_Fem = new Old_Fem();
-
-        }
     }
 }
