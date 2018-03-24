@@ -16,15 +16,21 @@ namespace ConsoleApp1
         static List<List<double>> A;
         public Dense_Straight_Solver(ref GlobalMatrix _GM)
         {
-            GM = _GM;
-            gg = GM.gg;
-            fe = GM.fe;
-            lm = GM.lm;
-            Size = fe.Size;
-            A = GM.A_dense;
+            if (InsertedInfo.Dense)
+            {
+                GM = _GM;
+                gg = GM.gg;
+                fe = GM.fe;
+                lm = GM.lm;
+                Size = fe.Size;
+                A = GM.A_dense;
 
-            A_tranfroming_into_dense_LU();
-            Solve();
+                A_tranfroming_into_dense_LU();
+                Solve();
+
+                Shared_Field.Save_vector(Answer, "dd84ai_RGR_output_X0_dense_Straight_LU.txt");
+                Shared_Field.Show_three_elements_from_vector(Answer);
+            }
         }
         void A_tranfroming_into_dense_LU()
         {
@@ -78,15 +84,12 @@ namespace ConsoleApp1
 
             return x;
         }
-        static double[] F; //for Ax=F
+        public double[] Answer; //for Ax=F
         static double[] y;
         void Solve()
         {
             y = Direct_for_dense_Ly_F(GM.F_dense);
-            F = Reverse_for_dense_Ux_y(y);
-
-            Shared_Field.Save_vector(F, "dd84ai_RGR_output_X0_dense_Straight_LU.txt");
-            Shared_Field.Show_three_elements_from_vector(F);
+            Answer = Reverse_for_dense_Ux_y(y);
         }
     }
 }

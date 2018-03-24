@@ -15,6 +15,13 @@ namespace ConsoleApp1
         public static Dense_Straight_Solver DSS = new Dense_Straight_Solver(ref GM);
         public New_FEM()
         {
+            InsertedInfo II = new InsertedInfo();
+            Trilinear_Basis_Functions TBF_dense = new Trilinear_Basis_Functions(ref GM, new List<double>(DSS.Answer));
+            foreach (var point in II.Points)
+            {
+                Console.WriteLine($"Precise value = {TBF_dense.Calculate(point)}");
+            }
+
             Console.Write("");
         }
     }

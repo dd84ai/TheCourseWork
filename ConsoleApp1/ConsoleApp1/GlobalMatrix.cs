@@ -17,14 +17,10 @@ namespace ConsoleApp1
             gg = fe.greedy_grid;
             lm = _locmat;
 
-            //Инициализировали сразу нулями.
-            A_dense = Shared_Field.Init_matrix(fe.Size);
-            F_dense = Shared_Field.Init_vector(fe.Size);
-
             Wrapped_Global_Matrix_Constructer();
         }
-        public List<List<double>> A_dense;
-        public List<double> F_dense;
+        public List<List<double>> A_dense = null;
+        public List<double> F_dense = null;
         
 
         /// <summary>
@@ -39,6 +35,13 @@ namespace ConsoleApp1
         /// </summary>
         void Constructing_Global_Matrix(ref List<double> X, ref List<double> Y, ref List<double> Z)
         {
+            if (InsertedInfo.Dense)
+            {
+                //Инициализировали сразу нулями.
+                A_dense = Shared_Field.Init_matrix(fe.Size);
+                F_dense = Shared_Field.Init_vector(fe.Size);
+            }
+
             /// <summary>
             /// Temporal Trash for Global Matrix Constructing
             /// </summary>
@@ -70,7 +73,8 @@ namespace ConsoleApp1
 
                     }
 
-            if (InsertedInfo.Dense) Bounaries_activate_dense();
+            if (InsertedInfo.Dense)
+                Bounaries_activate_dense();
         }
         void Bounaries_activate_dense()
         {
@@ -115,7 +119,7 @@ namespace ConsoleApp1
                 (global / (gg.OS_X.Count() * gg.OS_Y.Count()))
                 );
         }
-        void I_desire_to_recieve_my_indexes(ref List<int> ind, int i, int j, int k)
+        public void I_desire_to_recieve_my_indexes(ref List<int> ind, int i, int j, int k)
         {
             int i0 = i;
             int i1 = i + 1;
