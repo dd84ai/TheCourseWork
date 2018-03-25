@@ -236,21 +236,21 @@ namespace ConsoleApp1
                 F_sparse[boundary.fe_number] = InsertedInfo.U_analit(gg.OS_X[x_index], gg.OS_Y[y_index], gg.OS_Z[z_index]);
             }
         }
-        int Reverse_global_number_to_x_index(int global)
+        public int Reverse_global_number_to_x_index(int global)
         {
             return (
                 (global % (gg.OS_X.Count() * gg.OS_Y.Count()))
                 % gg.OS_X.Count()
                 );
         }
-        int Reverse_global_number_to_y_index(int global)
+        public int Reverse_global_number_to_y_index(int global)
         {
             return (
                 (global % (gg.OS_X.Count() * gg.OS_Y.Count()))
                 / gg.OS_X.Count()
                 );
         }
-        int Reverse_global_number_to_z_index(int global)
+        public int Reverse_global_number_to_z_index(int global)
         {
             return (
                 (global / (gg.OS_X.Count() * gg.OS_Y.Count()))

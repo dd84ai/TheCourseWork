@@ -11,6 +11,7 @@ namespace ConsoleApp1
         public static double Gamma = 1, Lyambda = 1;
         public static bool Dense = false;
         public static bool Sparse = true;
+        public static bool Visualisation = true;
 
         /// <summary>
         /// Держи в уме формулку для нахождения аналитики
