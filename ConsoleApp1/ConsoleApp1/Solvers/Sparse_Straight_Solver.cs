@@ -86,9 +86,11 @@ namespace ConsoleApp1
                             if (finder_diag != -1) diag = au[j][finder_diag].value;
 
                             int finder = al[i].FindIndex(x => x.position == j);
-                            if (finder != -1)
-                                al[i][finder].value = (al[i][finder].value - sum) / diag;
-                            else
+                        if (finder != -1)
+                            al[i][finder].value = (al[i][finder].value - sum) / diag;
+                        else
+                        {
+                            if (sum != 0)
                             {
                                 int WhereToAdd = 0;
                                 for (int t = 0; t < al[i].Count(); t++)
@@ -98,7 +100,7 @@ namespace ConsoleApp1
                                     al[i].Insert(WhereToAdd, new Shared_Field.coordinate_cell(-sum / diag, j));
                                 else al[i].Add(new Shared_Field.coordinate_cell(-sum / diag, j));
                                 //Добавь элемент.
-                            
+                            }
                         }
                     }
 

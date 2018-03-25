@@ -223,7 +223,7 @@ namespace ConsoleApp1
                         index = au[i].FindIndex(x => x.position == boundary.fe_number);
                         if (index != -1)
                             if (i == au[i][index].position) au[i][index].value = 1;
-                            else au[i][index].value = 0;
+                            else au[i].RemoveAt(index);
                 }
 
                 //Потеряли диагональку
