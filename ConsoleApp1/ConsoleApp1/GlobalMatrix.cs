@@ -133,8 +133,8 @@ namespace ConsoleApp1
                                     else
                                     {
                                         int index = au[ind[m]].FindIndex(x => x.position == ind[h]);
-                                        if (index == -1) al[ind[m]].Add(new coordinate_cell(G[h][m] + M[h][m], ind[h]));
-                                        else al[ind[m]][index].value += G[h][m] + M[h][m];
+                                        if (index == -1) au[ind[m]].Add(new coordinate_cell(G[h][m] + M[h][m], ind[h]));
+                                        else au[ind[m]][index].value += G[h][m] + M[h][m];
                                     }
                                     //A_dense[ind[h]][ind[m]] += G[h][m] + M[h][m];
                                 }
@@ -147,6 +147,14 @@ namespace ConsoleApp1
 
             if (InsertedInfo.Dense)
                 Bounaries_activate_dense();
+            if (InsertedInfo.Sparse)
+            {
+                for (int i = 0; i < fe.Size; i++)
+                {
+                    al[i] = al[i].OrderBy(x => x.position).ToList();
+                    au[i] = au[i].OrderBy(x => x.position).ToList();
+                }
+            }
         }
         void Bounaries_activate_dense()
         {
