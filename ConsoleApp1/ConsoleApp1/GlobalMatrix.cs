@@ -154,18 +154,13 @@ namespace ConsoleApp1
                     al[i] = al[i].OrderBy(x => x.position).ToList();
                     au[i] = au[i].OrderBy(x => x.position).ToList();
                 }
+                Bounaries_activate_sparse();
             }
         }
         void Bounaries_activate_dense()
         {
-            int counter = 0;
             foreach (var boundary in fe.elems_which_bounders)
             {
-                counter++;
-                if (counter == fe.elems_which_bounders.Count())
-                {
-                    Console.Write("");
-                }
                 for (int i = 0; i < A_dense[boundary.fe_number].Count(); i++)
                 {
                     if (i == boundary.fe_number) A_dense[boundary.fe_number][i] = 1;
@@ -177,6 +172,27 @@ namespace ConsoleApp1
                 int z_index = Reverse_global_number_to_z_index(boundary.fe_number);
 
                 F_dense[boundary.fe_number] = InsertedInfo.U_analit(gg.OS_X[x_index], gg.OS_Y[y_index], gg.OS_Z[z_index]);
+            }
+        }
+        void Bounaries_activate_sparse()
+        {
+            foreach (var boundary in fe.elems_which_bounders)
+            {
+                di[boundary.fe_number] = 1;
+                for (int i = 0; i < al[boundary.fe_number].Count(); i++)
+                    al[boundary.fe_number][i].value = 0;
+
+                foreach (var column in au)
+                {
+                    int index = column.FindIndex(x => x.position == boundary.fe_number);
+                    if (index != -1) column[index].value = 0;
+                }
+
+                int x_index = Reverse_global_number_to_x_index(boundary.fe_number);
+                int y_index = Reverse_global_number_to_y_index(boundary.fe_number);
+                int z_index = Reverse_global_number_to_z_index(boundary.fe_number);
+
+                F_sparse[boundary.fe_number] = InsertedInfo.U_analit(gg.OS_X[x_index], gg.OS_Y[y_index], gg.OS_Z[z_index]);
             }
         }
         int Reverse_global_number_to_x_index(int global)

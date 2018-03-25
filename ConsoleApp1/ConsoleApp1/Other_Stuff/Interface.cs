@@ -27,7 +27,7 @@ namespace ConsoleApp1
         {
             Colorator("Press Escape to exit.", ConsoleColor.Magenta);
 
-            for (ConsoleKeyInfo awaiter = new ConsoleKeyInfo(); awaiter.KeyChar != 'q'; awaiter = Console.ReadKey())
+            for (ConsoleKeyInfo awaiter = new ConsoleKeyInfo(); awaiter.KeyChar != 'q'; Console.Write("key: "),awaiter = Console.ReadKey(), Console.Write(" -> "))
             {
                 SaySomeQuote();
             }
