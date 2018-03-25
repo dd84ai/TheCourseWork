@@ -21,8 +21,40 @@ namespace ConsoleApp1
         }
         public List<List<double>> A_dense = null;
         public List<double> F_dense = null;
-        
 
+        public class coordinate_cell : IEquatable<coordinate_cell>
+        {
+            public double value { get; set; }
+            public int position { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                if (obj == null) return false;
+                coordinate_cell objAsPart = obj as coordinate_cell;
+                if (objAsPart == null) return false;
+                else return Equals(objAsPart);
+            }
+            public override int GetHashCode()
+            {
+                return position;
+            }
+            public bool Equals(coordinate_cell other)
+            {
+                if (other == null) return false;
+                return (this.position.Equals(other.position));
+            }
+            // Should also override == and != operators.
+            public coordinate_cell(double _value, int _position)
+            {
+                value = _value;
+                position = _position;
+            }
+        }
+
+        public List<double> di = null;
+        public List<List<coordinate_cell>> al = null; //Нижний треугольник
+        public List<List<coordinate_cell>> au = null; //Верхний треугольник.
+        public List<double> F_sparse = null;
         /// <summary>
         /// Also obvious thing
         /// </summary>
@@ -41,7 +73,18 @@ namespace ConsoleApp1
                 A_dense = Shared_Field.Init_matrix(fe.Size);
                 F_dense = Shared_Field.Init_vector(fe.Size);
             }
-
+            if (InsertedInfo.Sparse)
+            {
+                di = Shared_Field.Init_vector(fe.Size);
+                al = new List<List<coordinate_cell>>(); //Нижний треугольник
+                au = new List<List<coordinate_cell>>(); //Верхний треугольник.
+                for (int i = 0; i < fe.Size; i++)
+                {
+                    al.Add(new List<coordinate_cell>());
+                    au.Add(new List<coordinate_cell>());
+                }
+                F_sparse = Shared_Field.Init_vector(fe.Size);
+            }
             /// <summary>
             /// Temporal Trash for Global Matrix Constructing
             /// </summary>
@@ -67,8 +110,37 @@ namespace ConsoleApp1
                                     A_dense[ind[h]][ind[m]] += G[h][m] + M[h][m];
                                 }
                             //F
-                            for (int l = 0; l < 4; l++)
+                            for (int l = 0; l < 8; l++)
                                 F_dense[ind[l]] += b[l];
+                        }
+                        if (InsertedInfo.Sparse)
+                        {
+                            //di = Shared_Field.Init_vector(fe.Size);
+                            //al = new List<List<coordinate_cell>>(); //Нижний треугольник
+                            //au = new List<List<coordinate_cell>>(); //Верхний треугольник.
+                            for (int h = 0; h < 8; h++)
+                                for (int m = 0; m < 8; m++)
+                                {
+                                    //Если диагональный элемент
+                                    if (ind[h] == ind[m]) di[ind[h]] += G[h][m] + M[h][m];
+                                    //Иначе если нижний треугольник
+                                    else if (ind[h] > ind[m])
+                                    {
+                                        int index = al[ind[h]].FindIndex(x => x.position == ind[m]);
+                                        if (index == -1) al[ind[h]].Add(new coordinate_cell(G[h][m] + M[h][m], ind[m]));
+                                        else al[ind[h]][index].value += G[h][m] + M[h][m];
+                                    }
+                                    else
+                                    {
+                                        int index = au[ind[m]].FindIndex(x => x.position == ind[h]);
+                                        if (index == -1) al[ind[m]].Add(new coordinate_cell(G[h][m] + M[h][m], ind[h]));
+                                        else al[ind[m]][index].value += G[h][m] + M[h][m];
+                                    }
+                                    //A_dense[ind[h]][ind[m]] += G[h][m] + M[h][m];
+                                }
+
+                            for (int l = 0; l < 8; l++)
+                                F_sparse[ind[l]] += b[l];
                         }
 
                     }
