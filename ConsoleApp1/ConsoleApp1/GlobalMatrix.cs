@@ -152,8 +152,8 @@ namespace ConsoleApp1
 
                     }
 
-            if (!InsertedInfo.Dense)
-                Bounaries_activate_dense();
+            if (InsertedInfo.Dense)
+                if (!InsertedInfo.Test_disabled_boundaries) Bounaries_activate_dense();
             if (InsertedInfo.Sparse)
             {
                 for (int i = 0; i < fe.Size; i++)
@@ -161,7 +161,7 @@ namespace ConsoleApp1
                     al[i] = al[i].OrderBy(x => x.position).ToList();
                     au[i] = au[i].OrderBy(x => x.position).ToList();
                 }
-                //Bounaries_activate_sparse();
+                if (!InsertedInfo.Test_disabled_boundaries) Bounaries_activate_sparse();
             }
 
         }

@@ -24,13 +24,18 @@ namespace ConsoleApp1
             fe = GM.fe;
             lm = GM.lm;
 
-            //Size = fe.Size;
-            //al = GM.al;
-            //au = GM.au;
-
-            al = GM.Test_al;
-            au = GM.Test_au;
-            Size = GM.Test_Size;
+            if (InsertedInfo.Test_another_matrix)
+            {
+                al = GM.Test_al;
+                au = GM.Test_au;
+                Size = GM.Test_Size;
+            }
+            else
+            {
+                Size = fe.Size;
+                al = GM.al;
+                au = GM.au;
+            }
 
             F_sparse = GM.F_sparse;
 
@@ -41,7 +46,7 @@ namespace ConsoleApp1
             double sum;
             for (int i = 0; i < Size; i++)
             {
-                
+
                 //Interface.Pause_One_Time();
                 //Щас i-тая строка для al
                 //Щас i-тый столбец для au
@@ -51,6 +56,48 @@ namespace ConsoleApp1
                  * Нам Надо пройти от элемента с началым индексом
                  * строки до самой диагонали
                  */
+
+                //What a joy, repeat it for al.
+                if (al[i].Count() != 0)
+                    for (int j = al[i][0].position; j < i; j++)
+                    {
+                        sum = 0;
+
+                        for (int k = 0; k < al[i].Count() && al[i][k].position < j; k++)
+                        {
+                            /*
+                             * Теперь для al[i][k] элемента найти парный L-тый элемент.
+                             * 
+                             */
+                            int index = au[j].FindIndex(x => x.position == al[i][k].position);
+                            if (index != -1)
+                                sum += al[i][k].value * au[j][index].value;
+                        }
+
+                        if (sum != 0)
+                        {
+                            //int finder_diag;
+                            int finder_diag = au[i].FindIndex(x => x.position == al[i][j].position);
+                            double diag = 1;
+                            if (finder_diag != -1) diag = au[al[i][j].position][finder_diag].value;
+
+                            int finder = al[i].FindIndex(x => x.position == j);
+                            if (finder != -1)
+                                al[i][finder].value = (al[i][finder].value - sum) / diag;
+                            else
+                            {
+                                int WhereToAdd = 0;
+                                for (int t = 0; t < al[i].Count(); t++)
+                                    if (al[i][t].position < j) WhereToAdd = t + 1;
+
+                                if (WhereToAdd < al[i].Count())
+                                    al[i].Insert(WhereToAdd, new Shared_Field.coordinate_cell(-sum / diag, j));
+                                else al[i].Add(new Shared_Field.coordinate_cell(-sum / diag, j));
+                                //Добавь элемент.
+                            }
+                        }
+                    }
+
                 if (au[i].Count != 0)
                     for (int j = au[i][0].position; j <= i; j++)
                     {
@@ -69,71 +116,32 @@ namespace ConsoleApp1
                              * Теперь для au[i][k] элемента найти парный L-тый элемент.
                              * 
                              */
-                            int index = al[i].FindIndex(x => x.position == au[i][k].position);
+                            int index = al[j].FindIndex(x => x.position == au[i][k].position);
                             if (index != -1)
-                                sum += al[i][index].value * au[i][k].value;
+                                sum += al[j][index].value * au[i][k].value;
                         }
 
-                        int finder = au[i].FindIndex(x => x.position == j);
-                        if (finder != -1)
-                            au[i][finder].value -= sum;
-                        else
+                        if (sum != 0)
                         {
-                            int WhereToAdd = 0;
-                            for (int t = 0; t < au[i].Count(); t++)
-                                if (au[i][t].position < j) WhereToAdd = t + 1;
+                            int finder = au[i].FindIndex(x => x.position == j);
+                            if (finder != -1)
+                                au[i][finder].value -= sum;
+                            else
+                            {
+                                int WhereToAdd = 0;
+                                for (int t = 0; t < au[i].Count(); t++)
+                                    if (au[i][t].position < j) WhereToAdd = t + 1;
 
-                            if (WhereToAdd < au[i].Count())
-                            au[i].Insert(WhereToAdd, new Shared_Field.coordinate_cell(-sum, j));
-                            else au[i].Add(new Shared_Field.coordinate_cell(-sum, j));
-                            //Добавь элемент.
+                                if (WhereToAdd < au[i].Count())
+                                    au[i].Insert(WhereToAdd, new Shared_Field.coordinate_cell(-sum, j));
+                                else au[i].Add(new Shared_Field.coordinate_cell(-sum, j));
+                                //Добавь элемент.
+                            }
                         }
                     }
 
-                Console.WriteLine($"i = {i}");
-                if (i == 5)
-                {
-                    Console.Write("");
-                }
 
-                //What a joy, repeat it for al.
-                if (al[i].Count()!=0)
-                    for (int j = al[i][0].position; j < i; j++)
-                    {
-                        sum = 0;
-       
-                        for (int k = 0; k < al[i].Count() && al[i][k].position < j; k++)
-                        {
-                            /*
-                             * Теперь для al[i][k] элемента найти парный L-тый элемент.
-                             * 
-                             */
-                            int index = au[al[i][k].position].FindIndex(x => x.position == i);
-                            if (index != -1)
-                                sum += al[i][k].value * au[al[i][k].position][index].value;
-                        }
-
-                        //int finder_diag;
-                        int finder_diag = au[i].FindIndex(x => x.position == i);
-                        double diag = 1;
-                        if (finder_diag != -1) diag = au[i][finder_diag].value;
-
-                        int finder = al[i].FindIndex(x => x.position == j);
-                        if (finder != -1)
-                            al[i][finder].value = (al[i][finder].value - sum)/ diag;
-                        else
-                        {
-                            int WhereToAdd = 0;
-                            for (int t = 0; t < al[i].Count(); t++)
-                                if (al[i][t].position < j) WhereToAdd = t + 1;
-
-                            if (WhereToAdd < al[i].Count())
-                                al[i].Insert(WhereToAdd, new Shared_Field.coordinate_cell(-sum / diag, j));
-                            else al[i].Add(new Shared_Field.coordinate_cell(sum / diag, j));
-                            //Добавь элемент.
-                        }
-                    }
-
+               
                 /*
                 //Шаг первый. Найти L.
                 for (int j = 0; j < al[i].Count(); j++)

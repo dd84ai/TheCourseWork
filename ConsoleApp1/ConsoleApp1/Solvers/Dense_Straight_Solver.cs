@@ -23,16 +23,17 @@ namespace ConsoleApp1
                 fe = GM.fe;
                 lm = GM.lm;
 
-                //Size = fe.Size;
-                //A = GM.A_dense;
-
-                Size = GM.Test_Size;
-                A = GM.Test_dense;
+                if (InsertedInfo.Test_another_matrix)
+                {
+                    Size = GM.Test_Size;
+                    A = GM.Test_dense;
+                }
+                else
+                {
+                    Size = fe.Size;
+                    A = GM.A_dense;
+                }
                 
-                
-
-
-
                 Solve();
 
                 Shared_Field.Save_vector(Answer, "dd84ai_RGR_output_X0_dense_Straight_LU.txt");
