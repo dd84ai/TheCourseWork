@@ -215,8 +215,7 @@ namespace ConsoleApp1
             int index;
             foreach (var boundary in fe.elems_which_bounders)
             {
-                for (int i = 0; i < al[boundary.fe_number].Count(); i++)
-                    al[boundary.fe_number][i].value = 0;
+                    al[boundary.fe_number].Clear();
 
                 for (int i = 0; i < au.Count(); i++)
                 {

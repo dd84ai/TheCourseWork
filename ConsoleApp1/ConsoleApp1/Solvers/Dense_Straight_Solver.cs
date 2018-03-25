@@ -133,9 +133,9 @@ namespace ConsoleApp1
             if (!InsertedInfo.Test_another_matrix)
             {
                 y = Direct_for_dense_Ly_F(GM.F_dense);
-                foreach (var value in y) Console.WriteLine($"y_dense = {value}"); Console.WriteLine("");
+                //foreach (var value in y) Console.WriteLine($"y_dense = {value}"); Console.WriteLine("");
                 F = Reverse_for_dense_Ux_y(y);
-                foreach (var value in F) Console.WriteLine($"F_dense = {value}");
+                //foreach (var value in F) Console.WriteLine($"F_dense = {value}");
                 F_list = F.ToList();
             }
            
