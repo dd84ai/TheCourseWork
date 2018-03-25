@@ -18,9 +18,17 @@ namespace ConsoleApp1
         {
             InsertedInfo II = new InsertedInfo();
 
-            Trilinear_Basis_Functions TBF_dense = new Trilinear_Basis_Functions(ref GM, new List<double>(DSS.Answer),II.Points, "dd84ai_DSS_precise_points.txt");
-            Trilinear_Basis_Functions TBF_sparse = new Trilinear_Basis_Functions(ref GM, new List<double>(SSS.Answer), II.Points, "dd84ai_SSS_precise_points.txt");
-
+            //for (int i = 0; i < DSS.Answer.Count() && i < 6; i++) Console.WriteLine($"F[{i}] = {DSS.Answer[i]}");
+            //Console.WriteLine("----------");
+            //for (int i = 0; i < SSS.Answer.Count() && i < 6; i++) Console.WriteLine($"F[{i}] = {SSS.Answer[i]}");
+            if (InsertedInfo.Dense) 
+            {
+                Trilinear_Basis_Functions TBF_dense = new Trilinear_Basis_Functions(ref GM, new List<double>(DSS.Answer), II.Points, "dd84ai_DSS_precise_points.txt");
+            }
+            if (InsertedInfo.Sparse)
+            {
+                Trilinear_Basis_Functions TBF_sparse = new Trilinear_Basis_Functions(ref GM, new List<double>(SSS.Answer), II.Points, "dd84ai_SSS_precise_points.txt");
+            }
             Console.Write("");
         }
     }

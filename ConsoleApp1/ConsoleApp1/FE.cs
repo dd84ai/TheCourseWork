@@ -18,11 +18,13 @@ namespace ConsoleApp1
         public int Size;
         public FE(ref Greed_Grid _greedy_grid)
         {
+            Console.WriteLine(this.ToString() + " initiated");
             greedy_grid = _greedy_grid;
             Generating_FE_List(ref greedy_grid.OS_X, ref greedy_grid.OS_Y, ref greedy_grid.OS_Z);
             Size = (greedy_grid.OS_X.Count()) *
                 (greedy_grid.OS_Y.Count()) *
                 (greedy_grid.OS_Z.Count());
+            Console.WriteLine($"Size = {Size}");
         }
         public class cell_of_FE
         {

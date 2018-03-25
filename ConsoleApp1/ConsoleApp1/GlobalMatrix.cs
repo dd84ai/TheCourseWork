@@ -13,12 +13,13 @@ namespace ConsoleApp1
         public LocalMatrixes lm;
         public GlobalMatrix(ref FE _fe, ref LocalMatrixes _locmat)
         {
+            Console.WriteLine(this.ToString() + " initiated");
             fe = _fe;
             gg = fe.greedy_grid;
             lm = _locmat;
 
 
-            Test_Size = 100;
+            Test_Size = 24;
             fill_test_test_dense();
             make_it_sparse();
 

@@ -9,7 +9,7 @@ namespace ConsoleApp1
     public class InsertedInfo
     {
         public static double Gamma = 1, Lyambda = 1;
-        public static bool Dense = true;
+        public static bool Dense = false;
         public static bool Sparse = true;
 
         /// <summary>
@@ -54,6 +54,7 @@ namespace ConsoleApp1
         public List<InsertedInfo.Point3D> Points = new List<Point3D>();
         public InsertedInfo()
         {
+            Console.WriteLine(this.ToString() + " initiated");
             Points.Add(new Point3D((double)4 / 3, (double)4 / 3, (double)4 / 3));
             Points.Add(new Point3D((double)5 / 3, (double)4 / 3, (double)4 / 3));
             Points.Add(new Point3D((double)4 / 3, (double)5 / 3, (double)4 / 3));

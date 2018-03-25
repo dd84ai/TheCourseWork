@@ -16,28 +16,33 @@ namespace ConsoleApp1
         static List<List<double>> A;
         public Dense_Straight_Solver(ref GlobalMatrix _GM)
         {
+            F_list = new List<double>(new double[Size]);
             if (InsertedInfo.Dense)
             {
-                GM = _GM;
-                gg = GM.gg;
-                fe = GM.fe;
-                lm = GM.lm;
-
-                if (InsertedInfo.Test_another_matrix)
+                Console.WriteLine(this.ToString() + " initiated");
+                if (InsertedInfo.Dense)
                 {
-                    Size = GM.Test_Size;
-                    A = GM.Test_dense;
-                }
-                else
-                {
-                    Size = fe.Size;
-                    A = GM.A_dense;
-                }
-                
-                Solve();
+                    GM = _GM;
+                    gg = GM.gg;
+                    fe = GM.fe;
+                    lm = GM.lm;
 
-                Shared_Field.Save_vector(Answer, "dd84ai_RGR_output_X0_dense_Straight_LU.txt");
-                Shared_Field.Show_three_elements_from_vector(Answer);
+                    if (InsertedInfo.Test_another_matrix)
+                    {
+                        Size = GM.Test_Size;
+                        A = GM.Test_dense;
+                    }
+                    else
+                    {
+                        Size = fe.Size;
+                        A = GM.A_dense;
+                    }
+
+                    Solve();
+
+                    Shared_Field.Save_vector(Answer, "dd84ai_RGR_output_X0_dense_Straight_LU.txt");
+                    Shared_Field.Show_three_elements_from_vector(Answer);
+                }
             }
         }
         void A_tranfroming_into_dense_LU()
@@ -125,11 +130,12 @@ namespace ConsoleApp1
             //Shared_Field.Save_matrix(A, "A_dense_after_transmutation.txt");
             //Multiplicate();
 
-            F_list = new List<double>(new double[Size]);
             if (!InsertedInfo.Test_another_matrix)
             {
                 y = Direct_for_dense_Ly_F(GM.F_dense);
+                foreach (var value in y) Console.WriteLine($"y_dense = {value}"); Console.WriteLine("");
                 F = Reverse_for_dense_Ux_y(y);
+                foreach (var value in F) Console.WriteLine($"F_dense = {value}");
                 F_list = F.ToList();
             }
            

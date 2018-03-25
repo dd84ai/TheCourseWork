@@ -157,6 +157,7 @@ namespace ConsoleApp1
         }
         public LocalMatrixes(ref Greed_Grid _greed)
         {
+            Console.WriteLine(this.ToString() + " initiated");
             gg = _greed;
             Put_References(ref gg.OS_X, ref gg.OS_Y, ref gg.OS_Z);
             Console.Write("");

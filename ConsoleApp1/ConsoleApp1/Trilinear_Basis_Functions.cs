@@ -15,6 +15,7 @@ namespace ConsoleApp1
         static List<double> Vector_Answer;
         public Trilinear_Basis_Functions(ref GlobalMatrix _GM, List<double> _Vector_Answer, List<InsertedInfo.Point3D> Points, string name)
         {
+            Console.WriteLine(this.ToString() + " initiated");
             GM = _GM;
             gg = GM.gg;
             fe = GM.fe;

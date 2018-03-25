@@ -19,27 +19,32 @@ namespace ConsoleApp1
         public List<double> F_sparse = null;
         public Sparse_Straight_Solver(ref GlobalMatrix _GM)
         {
-            GM = _GM;
-            gg = GM.gg;
-            fe = GM.fe;
-            lm = GM.lm;
-
-            if (InsertedInfo.Test_another_matrix)
+            F = new List<double>(new double[Size]);
+            if (InsertedInfo.Sparse)
             {
-                al = GM.Test_al;
-                au = GM.Test_au;
-                Size = GM.Test_Size;
-            }
-            else
-            {
-                Size = fe.Size;
-                al = GM.al;
-                au = GM.au;
-            }
+                Console.WriteLine(this.ToString() + " initiated");
+                GM = _GM;
+                gg = GM.gg;
+                fe = GM.fe;
+                lm = GM.lm;
 
-            F_sparse = GM.F_sparse;
+                if (InsertedInfo.Test_another_matrix)
+                {
+                    al = GM.Test_al;
+                    au = GM.Test_au;
+                    Size = GM.Test_Size;
+                }
+                else
+                {
+                    Size = fe.Size;
+                    al = GM.al;
+                    au = GM.au;
+                }
 
-            Solve();
+                F_sparse = GM.F_sparse;
+
+                Solve();
+            }
         }
         void A_tranfroming_into_sparse_LU()
         {
@@ -220,7 +225,7 @@ namespace ConsoleApp1
 
             return Temp;
         }
-        /*List<double> Direct_for_dense_Ly_F(List<double> F)
+        List<double> Direct_for_dense_Ly_F(List<double> F)
         {
             List<double> y = new List<double>(new double[Size]);
             for (int i = 0; i < Size; i++)
@@ -229,15 +234,35 @@ namespace ConsoleApp1
             for (int i = 0; i < Size; i++)
             {
                 double sum = 0;
-                for (int k = 0; k < i; k++)
-                    sum -= A[i][k] * y[k];
+                for (int k = 0; k < al[i].Count(); k++)
+                    sum -= al[i][k].value * y[al[i][k].position];
                 y[i] = F[i] + sum;
             }
             return y;
         }
-        List<double> Reverse_for_dense_Ux_y(double[] y)
+        List<double> Reverse_for_dense_Ux_y(List<double> y)
         {
             List<double> x = y;
+
+            for (int i = Size - 1; i >= 0; i--)
+            {
+                for (int k = 0; k < au.Count(); k++)
+                {
+                    int finder = au[k].FindIndex(Item => Item.position == i);
+                    if (finder != -1 && k != au[k][finder].position)
+                        y[i] -= au[k][finder].value * x[k];
+                }
+                    //for (int k = i + 1; k < Size; k++)
+                    //y[i] -= A[i][k] * x[k];
+                x[i] /= au[i][au[i].Count() - 1].value;
+            }
+
+            return x;
+        }
+        /*
+        double[] Reverse_for_dense_Ux_y(double[] y)
+        {
+            double[] x = y;
 
             for (int i = Size - 1; i >= 0; i--)
             {
@@ -247,10 +272,10 @@ namespace ConsoleApp1
             }
 
             return x;
-        }*/
+        }
+         */
         void Solve()
         {
-            F = new List<double>(new double[Size]);
             //List<List<double>> A;
             //A = transmute_to_dense();
             //Shared_Field.Save_matrix(A, "A_sparse_before_transmutation.txt");
@@ -263,8 +288,10 @@ namespace ConsoleApp1
             //Multiplicate();
 
             List<double> y;
-            //y = Direct_for_dense_Ly_F(GM.F_dense);
-            //F = Reverse_for_dense_Ux_y(y);
+            y = Direct_for_dense_Ly_F(GM.F_sparse);
+            //foreach (var value in y) Console.WriteLine($"y_dense = {value}"); Console.WriteLine("");
+            F = Reverse_for_dense_Ux_y(y);
+            //foreach (var value in F) Console.WriteLine($"F_dense = {value}");
         }
         List<double> F;
         public List<double> Answer

@@ -204,6 +204,7 @@ namespace ConsoleApp1
         public List<double> OS_X, OS_Y, OS_Z;
         public Greed_Grid()
         {
+            Console.WriteLine(this.ToString() + " initiated");
             OS_X = areas.AxeGenerating(ref areas.AxeX);
             OS_Y = areas.AxeGenerating(ref areas.AxeY);
             OS_Z = areas.AxeGenerating(ref areas.AxeZ);
