@@ -220,19 +220,49 @@ namespace ConsoleApp1
 
             return Temp;
         }
+        /*List<double> Direct_for_dense_Ly_F(List<double> F)
+        {
+            List<double> y = new List<double>(new double[Size]);
+            for (int i = 0; i < Size; i++)
+                y[i] = F[i];
+
+            for (int i = 0; i < Size; i++)
+            {
+                double sum = 0;
+                for (int k = 0; k < i; k++)
+                    sum -= A[i][k] * y[k];
+                y[i] = F[i] + sum;
+            }
+            return y;
+        }
+        List<double> Reverse_for_dense_Ux_y(double[] y)
+        {
+            List<double> x = y;
+
+            for (int i = Size - 1; i >= 0; i--)
+            {
+                for (int k = i + 1; k < Size; k++)
+                    y[i] -= A[i][k] * x[k];
+                x[i] /= A[i][i];
+            }
+
+            return x;
+        }*/
         void Solve()
         {
-            List<List<double>> A;
-            A = transmute_to_dense();
-            Shared_Field.Save_matrix(A, "A_sparse_before_transmutation.txt");
+            F = new List<double>(new double[Size]);
+            //List<List<double>> A;
+            //A = transmute_to_dense();
+            //Shared_Field.Save_matrix(A, "A_sparse_before_transmutation.txt");
 
             A_tranfroming_into_sparse_LU();
 
-            A = transmute_to_dense();
-            Shared_Field.Save_matrix(A, "A_sparse_after_transmutation.txt");
+            //A = transmute_to_dense();
+            //Shared_Field.Save_matrix(A, "A_sparse_after_transmutation.txt");
 
-            Multiplicate();
+            //Multiplicate();
 
+            List<double> y;
             //y = Direct_for_dense_Ly_F(GM.F_dense);
             //F = Reverse_for_dense_Ux_y(y);
         }
