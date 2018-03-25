@@ -53,7 +53,7 @@ namespace ConsoleApp1
                 int quality_total = 0;
                 for (int i = 0; i < Target_vector.Count(); i++)
                 {
-                    outputFile.WriteLine("{0:E15}", Target_vector[i]);
+                    outputFile.WriteLine("{0}", Target_vector[i]);
                     //outputFile.WriteLine(Target_vector[i].ToString().Replace(',', '.'));
                 }
                 Console.WriteLine("Total = {0}", quality_total);
@@ -63,7 +63,7 @@ namespace ConsoleApp1
             using (StreamWriter outputFile = new StreamWriter("full_" + fname))
             {
                 for (int i = 0; i < Target_vector.Count(); i++)
-                    outputFile.WriteLine(Target_vector[i].ToString().Replace(',', '.'));
+                    outputFile.WriteLine(Target_vector[i].ToString("E15").Replace(',', '.'));
             }
         }
         public static void Show_three_elements_from_vector(List<double> Target_vector)

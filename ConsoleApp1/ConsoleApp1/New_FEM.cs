@@ -16,11 +16,8 @@ namespace ConsoleApp1
         public New_FEM()
         {
             InsertedInfo II = new InsertedInfo();
-            Trilinear_Basis_Functions TBF_dense = new Trilinear_Basis_Functions(ref GM, new List<double>(DSS.Answer));
-            foreach (var point in II.Points)
-            {
-                Console.WriteLine($"Precise value = {TBF_dense.Calculate(point)}");
-            }
+
+            Trilinear_Basis_Functions TBF_dense = new Trilinear_Basis_Functions(ref GM, new List<double>(DSS.Answer),II.Points, "dd84ai_DSS_precise_points.txt");
 
             Console.Write("");
         }

@@ -13,13 +13,23 @@ namespace ConsoleApp1
         static FE fe;
         static GlobalMatrix GM;
         static List<double> Vector_Answer;
-        public Trilinear_Basis_Functions(ref GlobalMatrix _GM, List<double> _Vector_Answer)
+        public Trilinear_Basis_Functions(ref GlobalMatrix _GM, List<double> _Vector_Answer, List<InsertedInfo.Point3D> Points, string name)
         {
             GM = _GM;
             gg = GM.gg;
             fe = GM.fe;
             lm = GM.lm;
             Vector_Answer = _Vector_Answer;
+
+            Save_and_Show(Points, name);
+        }
+        public void Save_and_Show(List<InsertedInfo.Point3D> Points, string name)
+        {
+            List<double> Answer = new List<double>();
+            foreach (var point in Points) Answer.Add(Calculate(point));
+            Console.WriteLine(name);
+            foreach (var value in Answer) Console.WriteLine($"Precise value = {value}");
+            Shared_Field.Save_vector(Answer, name);
         }
         public double Calculate(InsertedInfo.Point3D point)
         {
