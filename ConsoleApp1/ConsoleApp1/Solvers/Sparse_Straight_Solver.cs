@@ -6,6 +6,59 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    public class CellComparer : IComparer<Shared_Field.coordinate_cell>
+    {
+        public int Compare(Shared_Field.coordinate_cell x, Shared_Field.coordinate_cell y)
+        {
+            if (x == null)
+            {
+                if (y == null)
+                {
+                    // If x is null and y is null, they're
+                    // equal. 
+                    return 0;
+                }
+                else
+                {
+                    // If x is null and y is not null, y
+                    // is greater. 
+                    return -1;
+                }
+            }
+            else
+            {
+                // If x is not null...
+                //
+                if (y == null)
+                // ...and y is null, x is greater.
+                {
+                    return 1;
+                }
+                else
+                {
+                    // ...and y is not null, compare the 
+                    // lengths of the two strings.
+                    //
+                    int retval = x.position.CompareTo(y.position);
+
+                    if (retval != 0)
+                    {
+                        // If the strings are not of equal length,
+                        // the longer string is greater.
+                        //
+                        return retval;
+                    }
+                    else
+                    {
+                        // If the strings are of equal length,
+                        // sort them with ordinary string comparison.
+                        //
+                        return x.position.CompareTo(y.position);
+                    }
+                }
+            }
+        }
+    }
     class Sparse_Straight_Solver : ISolver
     {
         static Greed_Grid gg;
@@ -48,6 +101,7 @@ namespace ConsoleApp1
         }
         void A_tranfroming_into_sparse_LU()
         {
+            //CellComparer cc = new CellComparer();
             double sum;
             for (int i = 0; i < Size; i++)
             {
@@ -63,9 +117,7 @@ namespace ConsoleApp1
                                 sum += al[i][k].value * au[j][index].value;
                         }
 
-                            int finder_diag = au[j].FindIndex(x => x.position == j);
-                            double diag = 1;
-                            if (finder_diag != -1) diag = au[j][finder_diag].value;
+                            double diag = au[j][au[j].Count()-1].value;
 
                             int finder = al[i].FindIndex(x => x.position == j);
                         if (finder != -1)
