@@ -32,6 +32,10 @@ namespace ConsoleApp1
                 SaySomeQuote();
             }
         }
+        public static void Pause_One_Time()
+        {
+            Console.Write("key: "); Console.ReadKey(); Console.Write(" -> ");
+        }
         public static string ProjectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public static Random random = new Random();
         public void SaySomeQuote()

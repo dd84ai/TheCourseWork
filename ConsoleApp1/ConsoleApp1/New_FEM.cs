@@ -13,6 +13,7 @@ namespace ConsoleApp1
         public static FE fe = new FE(ref greedy_grid);
         public static GlobalMatrix GM = new GlobalMatrix(ref fe,ref localMatrixes);
         public static ISolver DSS = new Dense_Straight_Solver(ref GM);
+        public static ISolver SSS = new Sparse_Straight_Solver(ref GM);
         public New_FEM()
         {
             InsertedInfo II = new InsertedInfo();

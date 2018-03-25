@@ -23,8 +23,21 @@ namespace ConsoleApp1
                 fe = GM.fe;
                 lm = GM.lm;
                 Size = fe.Size;
+                A = GM.A_dense;
 
-                A = Shared_Field.ListDoubleCopyFrom(ref GM.A_dense);
+                /*
+                Size = 4;
+                A = new List<List<double>>();
+                for (int i = 0; i < 4; i++)
+                {
+                    A.Add(new List<double>());
+                    for (int j = 1; j <= 4; j++)
+                    {
+                        A[i].Add((double)1/(i*2+j));
+                    }
+                }*/
+
+
 
                 Solve();
 
@@ -84,12 +97,38 @@ namespace ConsoleApp1
 
             return x;
         }
+        void Multiplicate()
+        {
+            List<double> X = new List<double>();
+            List<double> F = new List<double>(new double[Size]);
+
+            for (int i = 0; i < Size; i++) X.Add((double)1/(i+1));
+
+            for (int i = 0; i < Size; i++)
+            {
+                double sum = 0;
+                for (int j = 0; j < Size; j++)
+                {
+                    sum += A[i][j] * X[j];
+                }
+                F[i] = sum;
+                
+            }
+
+            for (int i = 0; i < Size && i < 6; i++)
+                Console.WriteLine($"F[{i}] = {F[i]}");
+
+            Console.Write("");
+        }
         public double[] F; //for Ax=F
         static double[] y;
-        List<double> F_list;
+        List<double> F_list = null;
         void Solve()
         {
             A_tranfroming_into_dense_LU();
+            Multiplicate();
+
+
             y = Direct_for_dense_Ly_F(GM.F_dense);
             F = Reverse_for_dense_Ux_y(y);
             F_list = F.ToList();

@@ -22,38 +22,8 @@ namespace ConsoleApp1
         public List<List<double>> A_dense = null;
         public List<double> F_dense = null;
 
-        public class coordinate_cell : IEquatable<coordinate_cell>
-        {
-            public double value { get; set; }
-            public int position { get; set; }
-
-            public override bool Equals(object obj)
-            {
-                if (obj == null) return false;
-                coordinate_cell objAsPart = obj as coordinate_cell;
-                if (objAsPart == null) return false;
-                else return Equals(objAsPart);
-            }
-            public override int GetHashCode()
-            {
-                return position;
-            }
-            public bool Equals(coordinate_cell other)
-            {
-                if (other == null) return false;
-                return (this.position.Equals(other.position));
-            }
-            // Should also override == and != operators.
-            public coordinate_cell(double _value, int _position)
-            {
-                value = _value;
-                position = _position;
-            }
-        }
-
-        public List<double> di = null;
-        public List<List<coordinate_cell>> al = null; //Нижний треугольник
-        public List<List<coordinate_cell>> au = null; //Верхний треугольник.
+        public List<List<Shared_Field.coordinate_cell>> al = null; //Нижний треугольник
+        public List<List<Shared_Field.coordinate_cell>> au = null; //Верхний треугольник.
         public List<double> F_sparse = null;
         /// <summary>
         /// Also obvious thing
@@ -75,13 +45,12 @@ namespace ConsoleApp1
             }
             if (InsertedInfo.Sparse)
             {
-                di = Shared_Field.Init_vector(fe.Size);
-                al = new List<List<coordinate_cell>>(); //Нижний треугольник
-                au = new List<List<coordinate_cell>>(); //Верхний треугольник.
+                al = new List<List<Shared_Field.coordinate_cell>>(); //Нижний треугольник
+                au = new List<List<Shared_Field.coordinate_cell>>(); //Верхний треугольник.
                 for (int i = 0; i < fe.Size; i++)
                 {
-                    al.Add(new List<coordinate_cell>());
-                    au.Add(new List<coordinate_cell>());
+                    al.Add(new List<Shared_Field.coordinate_cell>());
+                    au.Add(new List<Shared_Field.coordinate_cell>());
                 }
                 F_sparse = Shared_Field.Init_vector(fe.Size);
             }
@@ -122,18 +91,19 @@ namespace ConsoleApp1
                                 for (int m = 0; m < 8; m++)
                                 {
                                     //Если диагональный элемент
-                                    if (ind[h] == ind[m]) di[ind[h]] += G[h][m] + M[h][m];
+                                    //if (ind[h] == ind[m]) di[ind[h]] += G[h][m] + M[h][m];
                                     //Иначе если нижний треугольник
-                                    else if (ind[h] > ind[m])
+                                    //else 
+                                    if (ind[h] > ind[m])
                                     {
                                         int index = al[ind[h]].FindIndex(x => x.position == ind[m]);
-                                        if (index == -1) al[ind[h]].Add(new coordinate_cell(G[h][m] + M[h][m], ind[m]));
+                                        if (index == -1) al[ind[h]].Add(new Shared_Field.coordinate_cell(G[h][m] + M[h][m], ind[m]));
                                         else al[ind[h]][index].value += G[h][m] + M[h][m];
                                     }
                                     else
                                     {
                                         int index = au[ind[m]].FindIndex(x => x.position == ind[h]);
-                                        if (index == -1) au[ind[m]].Add(new coordinate_cell(G[h][m] + M[h][m], ind[h]));
+                                        if (index == -1) au[ind[m]].Add(new Shared_Field.coordinate_cell(G[h][m] + M[h][m], ind[h]));
                                         else au[ind[m]][index].value += G[h][m] + M[h][m];
                                     }
                                     //A_dense[ind[h]][ind[m]] += G[h][m] + M[h][m];
@@ -145,7 +115,7 @@ namespace ConsoleApp1
 
                     }
 
-            if (InsertedInfo.Dense)
+            if (!InsertedInfo.Dense)
                 Bounaries_activate_dense();
             if (InsertedInfo.Sparse)
             {
@@ -154,8 +124,9 @@ namespace ConsoleApp1
                     al[i] = al[i].OrderBy(x => x.position).ToList();
                     au[i] = au[i].OrderBy(x => x.position).ToList();
                 }
-                Bounaries_activate_sparse();
+                //Bounaries_activate_sparse();
             }
+
         }
         void Bounaries_activate_dense()
         {
@@ -178,14 +149,15 @@ namespace ConsoleApp1
         {
             foreach (var boundary in fe.elems_which_bounders)
             {
-                di[boundary.fe_number] = 1;
                 for (int i = 0; i < al[boundary.fe_number].Count(); i++)
                     al[boundary.fe_number][i].value = 0;
 
-                foreach (var column in au)
+                for (int i = 0; i < au.Count(); i++)
                 {
-                    int index = column.FindIndex(x => x.position == boundary.fe_number);
-                    if (index != -1) column[index].value = 0;
+                    int index = au[i].FindIndex(x => x.position == boundary.fe_number);
+                    if (index != -1)
+                        if (index == au[i][index].position) au[i][index].value = 1;
+                        else au[i][index].value = 0;
                 }
 
                 int x_index = Reverse_global_number_to_x_index(boundary.fe_number);
