@@ -91,5 +91,38 @@ namespace ConsoleApp1
 
             return Answer;
         }
+        public static List<List<List<double>>> Graphic_Answer = new List<List<List<double>>>();
+        public void Visialize(List<double> Answer)
+        {
+            for (int i = 0; i < Answer.Count(); i++)
+            {
+                int x_index = GM.Reverse_global_number_to_x_index(i);
+                int y_index = GM.Reverse_global_number_to_y_index(i);
+                int z_index = GM.Reverse_global_number_to_z_index(i);
+
+                if (Graphic_Answer.Count() == z_index) Graphic_Answer.Add(new List<List<double>>());
+                if (Graphic_Answer[z_index].Count() == y_index) Graphic_Answer[z_index].Add(new List<double>());
+                Graphic_Answer[z_index][y_index].Add(Answer[i]);
+            }
+
+            for (int h = 0; h < Graphic_Answer.Count(); h++)
+            {
+                for (int i = 0; i < Graphic_Answer[h].Count() / 2; i++)
+                    for (int j = 0; j < Graphic_Answer[h][i].Count(); j++)
+                    {
+                        double temp = Graphic_Answer[h][i][j];
+                        Graphic_Answer[h][i][j] = Graphic_Answer[h][Graphic_Answer[h].Count() - 1 - i][j];
+                        Graphic_Answer[h][Graphic_Answer[h].Count() - 1 - i][j] = temp;
+                    }
+            }
+
+            SharpGL_limbo.SharpGL_Open_hidden();
+
+            for (int i = 0; i < Graphic_Answer.Count(); i++)
+                SharpGL_limbo.List_Of_Objects.Add(new GraphicData.GraphicObject("z_index = " + i, Graphic_Answer[i]));
+
+            SharpGL_limbo.Refresh_Window();
+            SharpGL_limbo.SharpGL_Open();
+        }
     }
 }
