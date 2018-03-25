@@ -17,8 +17,45 @@ namespace ConsoleApp1
             gg = fe.greedy_grid;
             lm = _locmat;
 
+
+            Test_Size = 4;
+            fill_test_test_dense();
+            make_it_sparse();
+
             Wrapped_Global_Matrix_Constructer();
         }
+        public int Test_Size;
+        public List<List<double>> Test_dense;
+        public List<List<Shared_Field.coordinate_cell>> Test_al = new List<List<Shared_Field.coordinate_cell>>(); //Нижний треугольник
+        public List<List<Shared_Field.coordinate_cell>> Test_au = new List<List<Shared_Field.coordinate_cell>>(); //Верхний треугольник.
+        void fill_test_test_dense()
+        {
+            Test_dense = new List<List<double>>();
+            for (int i = 0; i < 4; i++)
+            {
+                Test_dense.Add(new List<double>());
+                for (int j = 1; j <= 4; j++)
+                {
+                    Test_dense[i].Add((double)1 / (i * 2 + j));
+                }
+            }
+        }
+        void make_it_sparse()
+        {
+            for (int i = 0; i < Test_Size; i++)
+            {
+                Test_al.Add(new List<Shared_Field.coordinate_cell>());
+                Test_au.Add(new List<Shared_Field.coordinate_cell>());
+            }
+            for (int i = 0; i < Test_Size; i++)
+                for (int j = 0; j < Test_Size; j++)
+                {
+                    if (Test_dense[i][j]!=0)
+                    if (i <= j) Test_au[j].Add(new Shared_Field.coordinate_cell(Test_dense[i][j], i));
+                    else Test_al[i].Add(new Shared_Field.coordinate_cell(Test_dense[i][j], j));
+                }
+        }
+
         public List<List<double>> A_dense = null;
         public List<double> F_dense = null;
 

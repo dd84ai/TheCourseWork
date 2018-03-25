@@ -22,20 +22,14 @@ namespace ConsoleApp1
                 gg = GM.gg;
                 fe = GM.fe;
                 lm = GM.lm;
-                Size = fe.Size;
-                A = GM.A_dense;
 
-                /*
-                Size = 4;
-                A = new List<List<double>>();
-                for (int i = 0; i < 4; i++)
-                {
-                    A.Add(new List<double>());
-                    for (int j = 1; j <= 4; j++)
-                    {
-                        A[i].Add((double)1/(i*2+j));
-                    }
-                }*/
+                //Size = fe.Size;
+                //A = GM.A_dense;
+
+                Size = GM.Test_Size;
+                A = GM.Test_dense;
+                
+                
 
 
 

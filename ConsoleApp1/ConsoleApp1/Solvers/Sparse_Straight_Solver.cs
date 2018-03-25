@@ -23,10 +23,15 @@ namespace ConsoleApp1
             gg = GM.gg;
             fe = GM.fe;
             lm = GM.lm;
-            Size = fe.Size;
 
-            al = GM.al;
-            au = GM.au;
+            //Size = fe.Size;
+            //al = GM.al;
+            //au = GM.au;
+
+            al = GM.Test_al;
+            au = GM.Test_au;
+            Size = GM.Test_Size;
+
             F_sparse = GM.F_sparse;
 
             Solve();

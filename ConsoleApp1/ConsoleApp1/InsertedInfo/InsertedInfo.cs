@@ -63,5 +63,6 @@ namespace ConsoleApp1
             Points.Add(new Point3D((double)5 / 3, (double)5 / 3, (double)4 / 3));
             Points.Add(new Point3D((double)5 / 3, (double)5 / 3, (double)5 / 3));
         }
+
     }
 }
