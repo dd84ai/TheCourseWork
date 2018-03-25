@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    class Sparse_Straight_Solver
+    class Sparse_Straight_Solver : ISolver
     {
         static Greed_Grid gg;
         static LocalMatrixes lm;
@@ -31,6 +31,14 @@ namespace ConsoleApp1
         }
         void Solve()
         {
+        }
+        List<double> F_list;
+        public List<double> Answer
+        {
+            get
+            {
+                return this.F_list;
+            }
         }
     }
 }

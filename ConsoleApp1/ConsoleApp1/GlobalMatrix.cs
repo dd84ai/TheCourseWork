@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    class GlobalMatrix
+    public class GlobalMatrix
     {
         public FE fe;
         public Greed_Grid gg;

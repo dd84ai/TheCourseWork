@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    class Dense_Straight_Solver
+    class Dense_Straight_Solver : ISolver
     {
         static Greed_Grid gg;
         static LocalMatrixes lm;
@@ -23,9 +23,9 @@ namespace ConsoleApp1
                 fe = GM.fe;
                 lm = GM.lm;
                 Size = fe.Size;
-                A = GM.A_dense;
 
-                A_tranfroming_into_dense_LU();
+                A = Shared_Field.ListDoubleCopyFrom(ref GM.A_dense);
+
                 Solve();
 
                 Shared_Field.Save_vector(Answer, "dd84ai_RGR_output_X0_dense_Straight_LU.txt");
@@ -84,12 +84,22 @@ namespace ConsoleApp1
 
             return x;
         }
-        public double[] Answer; //for Ax=F
+        public double[] F; //for Ax=F
         static double[] y;
+        List<double> F_list;
         void Solve()
         {
+            A_tranfroming_into_dense_LU();
             y = Direct_for_dense_Ly_F(GM.F_dense);
-            Answer = Reverse_for_dense_Ux_y(y);
+            F = Reverse_for_dense_Ux_y(y);
+            F_list = F.ToList();
+        }
+        public List<double> Answer
+        {
+            get
+            {
+                return this.F_list;
+            }
         }
     }
 }

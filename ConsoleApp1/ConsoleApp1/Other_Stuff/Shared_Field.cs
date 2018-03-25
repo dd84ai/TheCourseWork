@@ -44,7 +44,7 @@ namespace ConsoleApp1
         {
             return new List<double>(new double[size]);
         }
-        public static void Save_vector(double[] Target_vector, string fname)
+        public static void Save_vector(List<double> Target_vector, string fname)
         {
             using (StreamWriter outputFile = new StreamWriter(fname))
             {
@@ -66,13 +66,20 @@ namespace ConsoleApp1
                     outputFile.WriteLine(Target_vector[i].ToString().Replace(',', '.'));
             }
         }
-        public static void Show_three_elements_from_vector(double[] Target_vector)
+        public static void Show_three_elements_from_vector(List<double> Target_vector)
         {
             Console.WriteLine("===Vector-begin===");
             //for (int i = 0; (i < 3) && (i < Target_vector.Count()); i++)
             for (int i = 0; (i < 3) && (i < Target_vector.Count()); i++)
                 Console.WriteLine("{0:E8}", Target_vector[i]);
             Console.WriteLine("===Vector-end===");
+        }
+        public static List<List<double>> ListDoubleCopyFrom(ref List<List<double>> input)
+        {
+            List<List<double>> Temp = new List<List<double>>();
+            foreach (var row in input)
+                Temp.Add(row.ToList());
+            return Temp;
         }
         
     }
