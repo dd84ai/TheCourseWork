@@ -77,9 +77,9 @@ namespace ConsoleApp1
                         if (sum != 0)
                         {
                             //int finder_diag;
-                            int finder_diag = au[i].FindIndex(x => x.position == al[i][j].position);
+                            int finder_diag = au[j].FindIndex(x => x.position == j);
                             double diag = 1;
-                            if (finder_diag != -1) diag = au[al[i][j].position][finder_diag].value;
+                            if (finder_diag != -1) diag = au[j][finder_diag].value;
 
                             int finder = al[i].FindIndex(x => x.position == j);
                             if (finder != -1)

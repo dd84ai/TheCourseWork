@@ -39,6 +39,8 @@ namespace ConsoleApp1
                     Test_dense[i].Add((double)1 / (i * 2 + j));
                 }
             }
+            Test_dense[1][3] = 0;
+            Test_dense[3][1] = 0;
         }
         void make_it_sparse()
         {
