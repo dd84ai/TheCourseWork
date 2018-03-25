@@ -19,7 +19,7 @@ namespace ConsoleApp1
             lm = _locmat;
 
 
-            Test_Size = 24;
+            Test_Size = 6;
             fill_test_test_dense();
             make_it_sparse();
 

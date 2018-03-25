@@ -128,7 +128,7 @@ namespace ConsoleApp1
             //Shared_Field.Save_matrix(A, "A_dense_before_transmutation.txt");
             A_tranfroming_into_dense_LU();
             //Shared_Field.Save_matrix(A, "A_dense_after_transmutation.txt");
-            //Multiplicate();
+            if (InsertedInfo.Test_another_matrix) Multiplicate();
 
             if (!InsertedInfo.Test_another_matrix)
             {

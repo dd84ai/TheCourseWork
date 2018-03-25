@@ -6,59 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    public class CellComparer : IComparer<Shared_Field.coordinate_cell>
-    {
-        public int Compare(Shared_Field.coordinate_cell x, Shared_Field.coordinate_cell y)
-        {
-            if (x == null)
-            {
-                if (y == null)
-                {
-                    // If x is null and y is null, they're
-                    // equal. 
-                    return 0;
-                }
-                else
-                {
-                    // If x is null and y is not null, y
-                    // is greater. 
-                    return -1;
-                }
-            }
-            else
-            {
-                // If x is not null...
-                //
-                if (y == null)
-                // ...and y is null, x is greater.
-                {
-                    return 1;
-                }
-                else
-                {
-                    // ...and y is not null, compare the 
-                    // lengths of the two strings.
-                    //
-                    int retval = x.position.CompareTo(y.position);
-
-                    if (retval != 0)
-                    {
-                        // If the strings are not of equal length,
-                        // the longer string is greater.
-                        //
-                        return retval;
-                    }
-                    else
-                    {
-                        // If the strings are of equal length,
-                        // sort them with ordinary string comparison.
-                        //
-                        return x.position.CompareTo(y.position);
-                    }
-                }
-            }
-        }
-    }
+    
     class Sparse_Straight_Solver : ISolver
     {
         static Greed_Grid gg;
@@ -108,13 +56,26 @@ namespace ConsoleApp1
                 if (al[i].Count() != 0)
                     for (int j = al[i][0].position; j < i; j++)
                     {
-                        sum = 0;
+                        /*sum = 0;
 
                         for (int k = 0; k < al[i].Count() && al[i][k].position < j; k++)
                         {
                             int index = au[j].FindIndex(x => x.position == al[i][k].position);
                             if (index != -1)
                                 sum += al[i][k].value * au[j][index].value;
+                        }*/
+
+                        //WoW. It works faster
+                        sum = 0;
+                        int h = 0;
+                        for (int k = 0; k < al[i].Count() && al[i][k].position < j && h < au[j].Count() && au[j][h].position < i; k++)
+                        {
+                            int First = al[i][k].position;
+                            int Second = au[j][h].position;
+
+                            if (First == Second)
+                                sum += al[i][k].value * au[j][h].value;
+                            else if (Second < First) { h++; k--; }
                         }
 
                             double diag = au[j][au[j].Count()-1].value;
@@ -140,14 +101,31 @@ namespace ConsoleApp1
                 if (au[i].Count != 0)
                     for (int j = au[i][0].position; j <= i; j++)
                     {
-                        sum = 0;
-
+                        /*for (int k = 0; k < al[i].Count() && al[i][k].position < j; k++)
+                        {
+                            int index = au[j].FindIndex(x => x.position == al[i][k].position);
+                            if (index != -1)
+                                sum += al[i][k].value * au[j][index].value;
+                        }
+                        */
+                       /*sum = 0;
                         for (int k = 0; k < au[i].Count() && au[i][k].position < j; k++)
                         {
 
                             int index = al[j].FindIndex(x => x.position == au[i][k].position);
                             if (index != -1)
                                 sum += al[j][index].value * au[i][k].value;
+                        }*/
+                        sum = 0;
+                        int h = 0;
+                        for (int k = 0; k < au[i].Count() && au[i][k].position < j && h < al[j].Count() && al[j][h].position < i; k++)
+                        {
+                            int First = al[j][h].position;
+                            int Second = au[i][k].position;
+
+                            if (First == Second)
+                                sum += al[j][h].value * au[i][k].value;
+                            else if (First < Second) { h++; k--; }
                         }
 
                         if (sum != 0)
@@ -255,7 +233,7 @@ namespace ConsoleApp1
             //A = transmute_to_dense();
             //Shared_Field.Save_matrix(A, "A_sparse_after_transmutation.txt");
 
-            //Multiplicate();
+            if (InsertedInfo.Test_another_matrix) Multiplicate();
 
             List<double> y;
             y = Direct_for_dense_Ly_F(GM.F_sparse);
