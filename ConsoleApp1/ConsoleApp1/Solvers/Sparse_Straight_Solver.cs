@@ -204,9 +204,34 @@ namespace ConsoleApp1
 
             for (int i = 0; i < Size && i < 6; i++) Console.WriteLine($"F[{i}] = {F[i]}");
         }
+        List<List<double>> transmute_to_dense()
+        {
+            List<List<double>> Temp = new List<List<double>>();
+            for (int i = 0; i < Size; i++)
+                Temp.Add(new List<double>(new double[Size]));
+
+            for (int i = 0; i < Size; i++)
+            {
+                foreach (var item in al[i])
+                    Temp[i][item.position] = item.value;
+
+                foreach(var item in au[i])
+                    Temp[item.position][i] = item.value;
+            }
+
+            return Temp;
+        }
         void Solve()
         {
+            List<List<double>> A;
+            A = transmute_to_dense();
+            Shared_Field.Save_matrix(A, "A_sparse_before_transmutation.txt");
+
             A_tranfroming_into_sparse_LU();
+
+            A = transmute_to_dense();
+            Shared_Field.Save_matrix(A, "A_sparse_after_transmutation.txt");
+
             Multiplicate();
 
             //y = Direct_for_dense_Ly_F(GM.F_dense);

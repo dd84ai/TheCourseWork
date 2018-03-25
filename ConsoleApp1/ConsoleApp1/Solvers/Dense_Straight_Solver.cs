@@ -120,7 +120,9 @@ namespace ConsoleApp1
         List<double> F_list = null;
         void Solve()
         {
+            Shared_Field.Save_matrix(A, "A_dense_before_transmutation.txt");
             A_tranfroming_into_dense_LU();
+            Shared_Field.Save_matrix(A, "A_dense_after_transmutation.txt");
             Multiplicate();
 
 

@@ -31,16 +31,23 @@ namespace ConsoleApp1
         void fill_test_test_dense()
         {
             Test_dense = new List<List<double>>();
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < Test_Size; i++)
             {
                 Test_dense.Add(new List<double>());
-                for (int j = 1; j <= 4; j++)
+                for (int j = 1; j <= Test_Size; j++)
                 {
                     Test_dense[i].Add((double)1 / (i * 2 + j));
                 }
             }
+
+            int nullificate = 0;
+            for (int i = 0; i < Test_Size; i++)
+                if (nullificate != i) Test_dense[nullificate][i] = 0;
+                else Test_dense[nullificate][i] = 1;
             Test_dense[1][3] = 0;
+            Test_dense[2][3] = 0;
             Test_dense[3][1] = 0;
+            Test_dense[3][2] = 0;
         }
         void make_it_sparse()
         {
@@ -155,7 +162,7 @@ namespace ConsoleApp1
                     }
 
             if (InsertedInfo.Dense)
-                if (!InsertedInfo.Test_disabled_boundaries) Bounaries_activate_dense();
+                Bounaries_activate_dense();
             if (InsertedInfo.Sparse)
             {
                 for (int i = 0; i < fe.Size; i++)
@@ -163,7 +170,7 @@ namespace ConsoleApp1
                     al[i] = al[i].OrderBy(x => x.position).ToList();
                     au[i] = au[i].OrderBy(x => x.position).ToList();
                 }
-                if (!InsertedInfo.Test_disabled_boundaries) Bounaries_activate_sparse();
+                Bounaries_activate_sparse();
             }
 
         }

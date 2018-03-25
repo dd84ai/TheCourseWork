@@ -109,5 +109,25 @@ namespace ConsoleApp1
                 position = _position;
             }
         }
+        public static void Save_matrix(List<List<double>> Target_Matrix, string fname)
+        {
+            using (StreamWriter outputFile = new StreamWriter(fname))
+            {
+                Console.WriteLine("______________________________________________");
+                Console.WriteLine("______________________________________________");
+                int quality_total = 0;
+
+                foreach (var row in Target_Matrix)
+                {
+                    foreach (var value in row)
+                    {
+                        outputFile.Write($"{value}\t");
+                    }
+                    outputFile.WriteLine();
+                }
+                Console.WriteLine("Total = {0}", quality_total);
+            }
+
+        }
     }
 }

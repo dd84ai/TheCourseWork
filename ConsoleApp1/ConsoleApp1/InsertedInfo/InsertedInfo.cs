@@ -65,6 +65,6 @@ namespace ConsoleApp1
         }
 
         public static bool Test_another_matrix = true;
-        public static bool Test_disabled_boundaries = true;
+        public static bool Test_disabled_boundaries = false;
     }
 }
