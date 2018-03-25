@@ -51,18 +51,6 @@ namespace ConsoleApp1
             double sum;
             for (int i = 0; i < Size; i++)
             {
-
-                //Interface.Pause_One_Time();
-                //Щас i-тая строка для al
-                //Щас i-тый столбец для au
-
-                /* Щас мы пойдем по столбцу
-                 * Следовательно щас i-тый столбец.
-                 * Нам Надо пройти от элемента с началым индексом
-                 * строки до самой диагонали
-                 */
-
-                //What a joy, repeat it for al.
                 if (al[i].Count() != 0)
                     for (int j = al[i][0].position; j < i; j++)
                     {
@@ -70,17 +58,11 @@ namespace ConsoleApp1
 
                         for (int k = 0; k < al[i].Count() && al[i][k].position < j; k++)
                         {
-                            /*
-                             * Теперь для al[i][k] элемента найти парный L-тый элемент.
-                             * 
-                             */
                             int index = au[j].FindIndex(x => x.position == al[i][k].position);
                             if (index != -1)
                                 sum += al[i][k].value * au[j][index].value;
                         }
 
-                        
-                            //int finder_diag;
                             int finder_diag = au[j].FindIndex(x => x.position == j);
                             double diag = 1;
                             if (finder_diag != -1) diag = au[j][finder_diag].value;
@@ -99,7 +81,6 @@ namespace ConsoleApp1
                                 if (WhereToAdd < al[i].Count())
                                     al[i].Insert(WhereToAdd, new Shared_Field.coordinate_cell(-sum / diag, j));
                                 else al[i].Add(new Shared_Field.coordinate_cell(-sum / diag, j));
-                                //Добавь элемент.
                             }
                         }
                     }
@@ -108,20 +89,10 @@ namespace ConsoleApp1
                     for (int j = au[i][0].position; j <= i; j++)
                     {
                         sum = 0;
-                        /*
-                         * Ты щас на i-том столбце
-                         * на j-ой строке.
-                         * Твоя задача. Осуществить суммирование
-                         * И если элемент существует, то вычесть
-                         * из него, иначе создать его, там где его
-                         * позиция подразумевается.
-                         */
+
                         for (int k = 0; k < au[i].Count() && au[i][k].position < j; k++)
                         {
-                            /*
-                             * Теперь для au[i][k] элемента найти парный L-тый элемент.
-                             * 
-                             */
+
                             int index = al[j].FindIndex(x => x.position == au[i][k].position);
                             if (index != -1)
                                 sum += al[j][index].value * au[i][k].value;
@@ -141,49 +112,9 @@ namespace ConsoleApp1
                                 if (WhereToAdd < au[i].Count())
                                     au[i].Insert(WhereToAdd, new Shared_Field.coordinate_cell(-sum, j));
                                 else au[i].Add(new Shared_Field.coordinate_cell(-sum, j));
-                                //Добавь элемент.
                             }
                         }
                     }
-
-
-               
-                /*
-                //Шаг первый. Найти L.
-                for (int j = 0; j < al[i].Count(); j++)
-                {
-                    sum = 0;
-                    for (int k = 0; k < j; k++)
-                    {
-                        int index = au[i].FindIndex(x => x.position == al[i][k].position);
-                        if (index != -1)
-                            sum += al[i][k].value * au[k][index].value;
-                    }
-                    al[i][j].value -= sum;
-                }
-
-                //Шаг второй. Диагональка
-                sum = 0;
-                for (int k = 0; k < al[i].Count(); k++)
-                {
-                    int index = au[i].FindIndex(x => x.position == al[i][k].position);
-                    if (index != -1)
-                        sum += al[i][k].value * au[k][index].value;
-                }
-                di[i] -= sum;
-
-                //Шаг третий. Найти U.
-                for (int j = 0; j < au[i].Count(); j++)
-                {
-                    sum = 0;
-                    for (int k = 0; k < j; k++)
-                    {
-                        int index = al[au[i][k].position].FindIndex(x => x.position == i);
-                        if (index != -1)
-                            sum += al[i][k].value * au[k][index].value;
-                    }
-                    au[i][j].value = (au[i][j].value - sum)/di[au[i][j].position];
-                }*/
             }
         }
         void Multiplicate()
@@ -261,21 +192,6 @@ namespace ConsoleApp1
 
             return x;
         }
-        /*
-        double[] Reverse_for_dense_Ux_y(double[] y)
-        {
-            double[] x = y;
-
-            for (int i = Size - 1; i >= 0; i--)
-            {
-                for (int k = i + 1; k < Size; k++)
-                    y[i] -= A[i][k] * x[k];
-                x[i] /= A[i][i];
-            }
-
-            return x;
-        }
-         */
         void Solve()
         {
             //List<List<double>> A;
