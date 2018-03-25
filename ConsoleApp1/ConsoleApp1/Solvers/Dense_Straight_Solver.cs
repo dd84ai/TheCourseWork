@@ -125,10 +125,14 @@ namespace ConsoleApp1
             Shared_Field.Save_matrix(A, "A_dense_after_transmutation.txt");
             Multiplicate();
 
-
-            y = Direct_for_dense_Ly_F(GM.F_dense);
-            F = Reverse_for_dense_Ux_y(y);
-            F_list = F.ToList();
+            F_list = new List<double>(new double[Size]);
+            if (!InsertedInfo.Test_another_matrix)
+            {
+                y = Direct_for_dense_Ly_F(GM.F_dense);
+                F = Reverse_for_dense_Ux_y(y);
+                F_list = F.ToList();
+            }
+           
         }
         public List<double> Answer
         {

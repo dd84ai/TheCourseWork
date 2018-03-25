@@ -18,7 +18,7 @@ namespace ConsoleApp1
             lm = _locmat;
 
 
-            Test_Size = 4;
+            Test_Size = 100;
             fill_test_test_dense();
             make_it_sparse();
 
@@ -40,14 +40,32 @@ namespace ConsoleApp1
                 }
             }
 
-            int nullificate = 0;
+            int nullificate = 2;
             for (int i = 0; i < Test_Size; i++)
                 if (nullificate != i) Test_dense[nullificate][i] = 0;
                 else Test_dense[nullificate][i] = 1;
-            Test_dense[1][3] = 0;
-            Test_dense[2][3] = 0;
-            Test_dense[3][1] = 0;
-            Test_dense[3][2] = 0;
+
+            Random Rand = new Random(5);
+
+            for (int i = 0; i < Test_Size; i++)
+            {
+                int r = Rand.Next(Test_Size);
+                if (i!=r)
+                Test_dense[i][r] = 0;
+            }
+            for (int i = 0; i < Test_Size; i++)
+            {
+                int r = Rand.Next(Test_Size);
+                if (i != r)
+                    Test_dense[i][r] = 0;
+            }
+            for (int i = 0; i < Test_Size; i++)
+            {
+                int r = Rand.Next(Test_Size);
+                if (i != r)
+                    Test_dense[i][r] = 0;
+            }
+
         }
         void make_it_sparse()
         {
@@ -193,6 +211,7 @@ namespace ConsoleApp1
         }
         void Bounaries_activate_sparse()
         {
+            int index;
             foreach (var boundary in fe.elems_which_bounders)
             {
                 for (int i = 0; i < al[boundary.fe_number].Count(); i++)
@@ -200,11 +219,15 @@ namespace ConsoleApp1
 
                 for (int i = 0; i < au.Count(); i++)
                 {
-                    int index = au[i].FindIndex(x => x.position == boundary.fe_number);
-                    if (index != -1)
-                        if (index == au[i][index].position) au[i][index].value = 1;
-                        else au[i][index].value = 0;
+                        index = au[i].FindIndex(x => x.position == boundary.fe_number);
+                        if (index != -1)
+                            if (i == au[i][index].position) au[i][index].value = 1;
+                            else au[i][index].value = 0;
                 }
+
+                //Потеряли диагональку
+                //index = au[boundary.fe_number].FindIndex(x => x.position == boundary.fe_number);
+                //if (index == - 1) au[boundary.fe_number].Add(new Shared_Field.coordinate_cell(1,boundary.fe_number));
 
                 int x_index = Reverse_global_number_to_x_index(boundary.fe_number);
                 int y_index = Reverse_global_number_to_y_index(boundary.fe_number);
