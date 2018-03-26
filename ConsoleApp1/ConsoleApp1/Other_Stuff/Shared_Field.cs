@@ -145,5 +145,15 @@ namespace ConsoleApp1
             lhs = rhs;
             rhs = temp;
         }
+        
+    }
+    public static class Test
+    {
+        public static List<double> F = null;
+        public static List<List<double>> A = null;
+        public static int Size = 0;
+
+
+        public static List<List<double>> A_old_dense_LU = new List<List<double>>();
     }
 }

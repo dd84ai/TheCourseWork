@@ -159,7 +159,8 @@ namespace ConsoleApp1
 
             for (int iter = 1; iter < Maxiter; iter++)
             {
-                if (Math.Sqrt(scalarRR = vect_scalar_a_and_b(R, R)) / vect_norma_F < E) { is_answer_correct = true; break; }
+                double Test;
+                if ((Test = Math.Sqrt(scalarRR = vect_scalar_a_and_b(R, R))) / vect_norma_F < E) { is_answer_correct = true; break; }
 
                 P = multiplicate_Ax(Z); // P = A*Z
                 Ar = multiplicate_ATx(P); // Ar = At*P

@@ -29,9 +29,9 @@ namespace ConsoleApp1
 #if (Debug)
                 debug = true;
 #endif
-                I.Greetings();
+                //I.Greetings();
                 Sub_Main();
-                I.Pause();
+                //I.Pause();
             }
             public static int order_of_file = 1;
             static bool boundary_left_1_type = true;
@@ -312,6 +312,18 @@ namespace ConsoleApp1
             }
             static double[] Direct_for_dense_Ly_F(double[] F)
             {
+                //Test
+                Console.WriteLine("Coping to Test Field");
+                Test.F = new List<double>(F);
+                Test.Size = Size;
+                Test.A = new List<List<double>>();
+                for (int i = 0; i < Size; i++)
+                {
+                    Test.A.Add(new List<double>());
+                    for (int j = 0; j < Size; j++)
+                        Test.A[i].Add(A[i, j]);
+                }
+
                 double[] y = new double[Size];
                 for (int i = 0; i < Size; i++)
                     y[i] = F[i];
@@ -809,6 +821,8 @@ namespace ConsoleApp1
 
             static void MSG()
             {
+                
+
                 bool is_answer_correct = false;
                 double scalarRR = 0, a = 0, b = 0;
                 X0 = new double[Size];
@@ -822,7 +836,8 @@ namespace ConsoleApp1
 
                 for (int iter = 1; iter < Maxiter; iter++)
                 {
-                    if (Math.Sqrt(scalarRR = vect_scalar_a_and_b(R, R)) / vect_norma_F < E) { is_answer_correct = true; break; }
+                    double Test;
+                    if ((Test = Math.Sqrt(scalarRR = vect_scalar_a_and_b(R, R))) / vect_norma_F < E) { is_answer_correct = true; break; }
 
                     P = multiplicate_Ax(Z); // P = A*Z
                     Ar = multiplicate_ATx(P); // Ar = At*P
@@ -922,6 +937,13 @@ namespace ConsoleApp1
 
 #if (Defined_dense_LU_matrix_is_online)
                 A_tranfroming_into_dense_LU(); if (debug) Show_matrix(A);
+                for (int i = 0; i < Size; i++)
+                {
+                    Test.A_old_dense_LU.Add(new List<double>());
+                    for (int j = 0; j < Size; j++)
+                        Test.A_old_dense_LU[i].Add(A[i, j]);
+                }
+
                 copy_M_to_LUM();
 
 
@@ -937,6 +959,8 @@ namespace ConsoleApp1
                 F = vect_equals(F_sparse);
                 Console.WriteLine("MSG:");
                 MSG();
+                if (InsertedInfo.Test_another_matrix)
+                    foreach (var value in X0) Console.WriteLine($"F_SMS_Old = {value}");
                 if (debug) Show_vector(X0);
                 if (Show_first_three_elements_from_vectors_of_answers)
                 {

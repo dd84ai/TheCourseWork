@@ -31,6 +31,7 @@ namespace ConsoleApp1
                 {
                     Size = GM.Test_Size;
                     A = GM.Test_dense;
+                    F_local = Shared_Field.CopyVectorFrom(GM.F_test);
                 }
                 else
                 {
@@ -128,18 +129,26 @@ namespace ConsoleApp1
         {
             //Shared_Field.Save_matrix(A, "A_dense_before_transmutation.txt");
             A_tranfroming_into_dense_LU();
+
+            /*for (int i = 0; i < Size; i++)
+                for (int j = 0; j < Size; j++)
+                {
+                    if (Test.A_old_dense_LU[i][j] != A[i][j])
+                        Console.WriteLine($"Warning:{Test.A_old_dense_LU[i][j]}!-{A[i][j]}");
+                }*/
+
             //Shared_Field.Save_matrix(A, "A_dense_after_transmutation.txt");
             if (InsertedInfo.Test_another_matrix) Multiplicate();
 
-            if (!InsertedInfo.Test_another_matrix)
-            {
+            
                 y = Direct_for_dense_Ly_F(F_local);
                 //foreach (var value in y) Console.WriteLine($"y_dense = {value}"); Console.WriteLine("");
                 F = Reverse_for_dense_Ux_y(y);
                 //foreach (var value in F) Console.WriteLine($"F_dense = {value}");
                 F_list = F.ToList();
-            }
-           
+            
+            if (InsertedInfo.Test_another_matrix)
+                foreach (var value in F_list) Console.WriteLine($"F_DSS = {value}");
         }
         public List<double> Answer
         {

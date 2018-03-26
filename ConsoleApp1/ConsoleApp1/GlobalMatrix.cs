@@ -32,7 +32,10 @@ namespace ConsoleApp1
         public List<double> F_test;
         void fill_test_test_dense()
         {
-            F_test = new List<double>();
+            F_test = Test.F;
+            Test_Size = Test.Size;
+            Test_dense = Test.A;
+            /*F_test = new List<double>();
             for (int i = 0; i < Test_Size; i++)
                 F_test.Add(i + 1);
 
@@ -49,7 +52,7 @@ namespace ConsoleApp1
             int nullificate = 2;
             for (int i = 0; i < Test_Size; i++)
                 if (nullificate != i) Test_dense[nullificate][i] = 0;
-                else Test_dense[nullificate][i] = 1;
+                else Test_dense[nullificate][i] = 1;*/
 
             /*Random Rand = new Random(5);
 
@@ -87,8 +90,42 @@ namespace ConsoleApp1
                     if (i <= j) Test_au[j].Add(new Shared_Field.coordinate_cell(Test_dense[i][j], i));
                     else Test_al[i].Add(new Shared_Field.coordinate_cell(Test_dense[i][j], j));
                 }
-        }
 
+            for (int i = 0; i < Test_Size; i++)
+            {
+                Test_al[i] = Test_al[i].OrderBy(x => x.position).ToList();
+                Test_au[i] = Test_au[i].OrderBy(x => x.position).ToList();
+            }
+
+            List<List<double>> Condensed = transmute_to_dense();
+
+            for (int i = 0; i < Test_Size; i++)
+                for (int j = 0; j < Test_Size; j++)
+                {
+                    if (Test_dense[i][j] != Condensed[i][j])
+                        Console.WriteLine($"Warning:{Test_dense[i][j]}!-{Condensed[i][j]}");
+                }
+
+
+            Console.Write("");
+        }
+        List<List<double>> transmute_to_dense()
+        {
+            List<List<double>> Temp = new List<List<double>>();
+            for (int i = 0; i < Test_Size; i++)
+                Temp.Add(new List<double>(new double[Test_Size]));
+
+            for (int i = 0; i < Test_Size; i++)
+            {
+                foreach (var item in Test_al[i])
+                    Temp[i][item.position] = item.value;
+
+                foreach (var item in Test_au[i])
+                    Temp[item.position][i] = item.value;
+            }
+
+            return Temp;
+        }
         public List<List<double>> A_dense = null;
         public List<double> F_dense = null;
 
