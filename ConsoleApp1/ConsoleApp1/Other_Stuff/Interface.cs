@@ -25,24 +25,21 @@ namespace ConsoleApp1
             Console.WriteLine(str);
             Console.ResetColor(); // reset to normal text color;
         }
-        public void Pause()
+        public int Pause()
         {
             Colorator("Press Escape to exit.", ConsoleColor.Magenta);
 
-            for (ConsoleKeyInfo awaiter = new ConsoleKeyInfo(); awaiter.KeyChar != 'q'; Console.Write("key: "),awaiter = Console.ReadKey(), Console.Write(" -> "))
+            for (ConsoleKeyInfo awaiter = new ConsoleKeyInfo(); true; Console.Write("'q' to quit, 'r' to show. Key: "),awaiter = Console.ReadKey(), Console.Write(" -> "))
             {
-
-                SaySomeQuote();
-                if (awaiter.KeyChar == 'r')
+                switch (awaiter.KeyChar)
                 {
-                    Application.Restart();
-                    Environment.Exit(0);
-                }
-                if (SharpGL_limbo.SharpGL_is_opened())
-                {
-                    Application.Run(SharpGL_limbo.SharpForm);
+                    case 'r': return 0;
+                    case 'q': return 46;
+                    default: SaySomeQuote(); break;
                 }
             }
+
+            return 0;
         }
         public static void Pause_One_Time()
         {

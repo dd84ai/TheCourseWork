@@ -27,9 +27,10 @@ namespace ConsoleApp1
             TimeSpan timeItTook = DateTime.Now - start;
             Console.WriteLine($"timeItTook = {timeItTook.TotalSeconds}");
 
-            
+            I.SaySomeQuote();
+            Application.Run(SharpGL_limbo.SharpForm);
 
-            I.Pause();
+            //I.Pause();
         }
     }
 }

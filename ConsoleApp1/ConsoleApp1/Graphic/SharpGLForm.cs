@@ -264,8 +264,14 @@ namespace ConsoleApp1
         /// <param name="e"></param>
         private void button_exit_Click(object sender, EventArgs e)
         {
-            //this.Visible = false;
-            Clearer();
+            this.Visible = false;
+            if (I.Pause() == 46)
+            {
+                Clearer();
+                return;
+            }
+            this.Visible = true;
+            //Clearer();
         }
 
         void setMouseData()
@@ -797,6 +803,8 @@ namespace ConsoleApp1
             GD.Grid.NetWorkOS_Y.Clear();
             GC.Collect(20000);
             Application.Exit();
+            this.Close();
+            Environment.Exit(0);
         }
 
         private void trackBar_FontSize_ValueChanged(object sender, EventArgs e)
