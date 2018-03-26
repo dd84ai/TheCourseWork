@@ -264,7 +264,8 @@ namespace ConsoleApp1
         /// <param name="e"></param>
         private void button_exit_Click(object sender, EventArgs e)
         {
-            this.Visible = false;
+            //this.Visible = false;
+            Clearer();
         }
 
         void setMouseData()
