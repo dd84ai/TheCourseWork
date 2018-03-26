@@ -74,18 +74,22 @@ namespace ConsoleApp1
                 Console.WriteLine("{0:E8}", Target_vector[i]);
             Console.WriteLine("===Vector-end===");
         }
-        public static List<List<double>> CopyMatrixFrom(ref List<List<double>> input)
+        public static List<List<double>> CopyMatrixFrom(List<List<double>> input)
         {
             List<List<double>> Temp = new List<List<double>>();
             foreach (var row in input)
                 Temp.Add(new List<double>(row.ToArray()));
             return Temp;
         }
-        public static List<double> CopyVectorFrom(ref List<double> input)
+        public static List<double> CopyVectorFrom(List<double> input)
         {
             List<double> Temp = new List<double>(input.ToArray());
                 
             return Temp;
+        }
+        public static double[] CopyVectorFromToDouble(List<double> input)
+        {
+            return input.ToArray();
         }
         public class coordinate_cell : IEquatable<coordinate_cell>
         {

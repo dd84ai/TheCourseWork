@@ -18,7 +18,7 @@ namespace ConsoleApp1
         public Dense_Straight_Solver(ref GlobalMatrix _GM)
         {
             F_list = new List<double>(new double[Size]);
-            if (InsertedInfo.Dense && InsertedInfo.Dense_Straight)
+            if (InsertedInfo.Dense)
             {
                 Console.WriteLine(this.ToString() + " initiated");
 
@@ -35,8 +35,8 @@ namespace ConsoleApp1
                 else
                 {
                     Size = fe.Size;
-                    A = GM.A_dense;
-                    F_local = GM.F_dense;
+                    A = Shared_Field.CopyMatrixFrom(GM.A_dense);
+                    F_local = Shared_Field.CopyVectorFrom(GM.F_dense);
                 }
 
                 Solve();

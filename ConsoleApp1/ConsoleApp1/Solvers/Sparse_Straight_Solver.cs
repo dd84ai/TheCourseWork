@@ -21,7 +21,7 @@ namespace ConsoleApp1
         public Sparse_Straight_Solver(ref GlobalMatrix _GM)
         {
             F = new List<double>(new double[Size]);
-            if (InsertedInfo.Sparse)
+            if (InsertedInfo.Sparse && InsertedInfo.Sparse_Straight)
             {
                 Console.WriteLine(this.ToString() + " initiated");
                 GM = _GM;
