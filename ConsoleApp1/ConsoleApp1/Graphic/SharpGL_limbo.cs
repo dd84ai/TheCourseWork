@@ -11,7 +11,7 @@ namespace ConsoleApp1
     {
         //SharpGL_limbo SharpGL = new SharpGL_limbo();
 
-        static SharpGLForm SharpForm = null;
+        public static SharpGLForm SharpForm = null;
 
         //Сюда добавлять матрицы на отображения. Примеры в функции UserGuide_To_Graphic
         public static List<GraphicData.GraphicObject> List_Of_Objects;

@@ -47,6 +47,24 @@ namespace ConsoleApp1
             //установить границы скруллбаров и сбросить мышки-местоположение в лево-нижний угол
             Refresh_Window();
         }
+        public SharpGLForm()
+        {
+            InitializeComponent();
+            //SharpGLWrappedThread ThreadController = new SharpGLWrappedThread();
+            Visible = true;
+            //Облегчим себе жизнь. Передадим в главную логическую сразу.
+            GD = new GraphicData(openGLControl, this);
+
+            //Manual Рендеринг, мы же не делаем игру, так что смысла в RealTime FPS нету.
+            //Для повторной отрисовки вызовите функцию openGLControl.Refresh();
+            openGLControl.RenderTrigger = RenderTrigger.Manual;
+            openGLControl.DoRender();
+
+            //ReadSettings();
+
+            //установить границы скруллбаров и сбросить мышки-местоположение в лево-нижний угол
+            Refresh_Window();
+        }
         /// <summary>
         /// Handles the OpenGLDraw event of the openGLControl control.
         /// </summary>
@@ -777,6 +795,7 @@ namespace ConsoleApp1
             GD.Grid.NetWorkOS_X.Clear();
             GD.Grid.NetWorkOS_Y.Clear();
             GC.Collect(20000);
+            Application.Exit();
         }
 
         private void trackBar_FontSize_ValueChanged(object sender, EventArgs e)

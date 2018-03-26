@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
 using System.IO;//files
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace ConsoleApp1
 {
@@ -29,7 +31,17 @@ namespace ConsoleApp1
 
             for (ConsoleKeyInfo awaiter = new ConsoleKeyInfo(); awaiter.KeyChar != 'q'; Console.Write("key: "),awaiter = Console.ReadKey(), Console.Write(" -> "))
             {
+
                 SaySomeQuote();
+                if (awaiter.KeyChar == 'r')
+                {
+                    Application.Restart();
+                    Environment.Exit(0);
+                }
+                if (SharpGL_limbo.SharpGL_is_opened())
+                {
+                    Application.Run(SharpGL_limbo.SharpForm);
+                }
             }
         }
         public static void Pause_One_Time()

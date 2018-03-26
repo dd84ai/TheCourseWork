@@ -11,7 +11,7 @@ using System.Drawing;
 
 namespace ConsoleApp1
 {
-    class Program
+    public class Program
     {
         static Interface I = new Interface();
         static void Main()
@@ -27,7 +27,7 @@ namespace ConsoleApp1
             TimeSpan timeItTook = DateTime.Now - start;
             Console.WriteLine($"timeItTook = {timeItTook.TotalSeconds}");
 
-            Application.Run();
+            
 
             I.Pause();
         }
