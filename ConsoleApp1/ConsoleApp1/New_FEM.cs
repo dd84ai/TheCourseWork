@@ -22,21 +22,26 @@ namespace ConsoleApp1
             //for (int i = 0; i < DSS.Answer.Count() && i < 6; i++) Console.WriteLine($"F[{i}] = {DSS.Answer[i]}");
             //Console.WriteLine("----------");
             //for (int i = 0; i < SSS.Answer.Count() && i < 6; i++) Console.WriteLine($"F[{i}] = {SSS.Answer[i]}");
-            if (InsertedInfo.Dense) 
-            {
-                Trilinear_Basis_Functions TBF_dense = new Trilinear_Basis_Functions(ref GM, new List<double>(DSS.Answer), II.Points, "dd84ai_DSS_precise_points.txt");
-            }
-            if (InsertedInfo.Sparse && InsertedInfo.Sparse_Straight)
-            {
-                Trilinear_Basis_Functions TBF_sparse_straight = new Trilinear_Basis_Functions(ref GM, new List<double>(SSS.Answer), II.Points, "dd84ai_SSS_precise_points.txt");
-                if (InsertedInfo.Visualisation) TBF_sparse_straight.Visialize(SSS.Answer);
-            }
-            if (InsertedInfo.Sparse && InsertedInfo.Sparse_MSG)
-            {
-                Trilinear_Basis_Functions TBF_sparse_MSG = new Trilinear_Basis_Functions(ref GM, new List<double>(SMS.Answer), II.Points, "dd84ai_SMS_precise_points.txt");
-                //if (InsertedInfo.Visualisation) TBF_sparse_MSG.Visialize(SSS.Answer);
-            }
 
+            if (!InsertedInfo.Test_another_matrix)
+            {
+
+                if (InsertedInfo.Dense)
+                {
+                    Trilinear_Basis_Functions TBF_dense = new Trilinear_Basis_Functions(ref GM, new List<double>(DSS.Answer), II.Points, "dd84ai_DSS_precise_points.txt");
+                }
+                if (InsertedInfo.Sparse && InsertedInfo.Sparse_Straight)
+                {
+                    Trilinear_Basis_Functions TBF_sparse_straight = new Trilinear_Basis_Functions(ref GM, new List<double>(SSS.Answer), II.Points, "dd84ai_SSS_precise_points.txt");
+                    if (InsertedInfo.Visualisation) TBF_sparse_straight.Visialize(SSS.Answer);
+                }
+                if (InsertedInfo.Sparse && InsertedInfo.Sparse_MSG)
+                {
+                    Trilinear_Basis_Functions TBF_sparse_MSG = new Trilinear_Basis_Functions(ref GM, new List<double>(SMS.Answer), II.Points, "dd84ai_SMS_precise_points.txt");
+                    //if (InsertedInfo.Visualisation) TBF_sparse_MSG.Visialize(SSS.Answer);
+                }
+
+            }
             Console.Write("");
         }
     }

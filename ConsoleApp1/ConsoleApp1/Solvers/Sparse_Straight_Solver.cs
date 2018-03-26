@@ -29,20 +29,23 @@ namespace ConsoleApp1
                 fe = GM.fe;
                 lm = GM.lm;
 
-                if (InsertedInfo.Test_another_matrix)
-                {
-                    al = GM.Test_al;
-                    au = GM.Test_au;
-                    Size = GM.Test_Size;
-                }
-                else
+                if (!InsertedInfo.Test_another_matrix)
                 {
                     Size = fe.Size;
                     al = GM.al;
                     au = GM.au;
+                    F_sparse = Shared_Field.CopyVectorFrom(GM.F_sparse);
+                }
+                else
+                {
+                    
+                    al = GM.Test_al;
+                    au = GM.Test_au;
+                    Size = GM.Test_Size;
+                    F_sparse = Shared_Field.CopyVectorFrom(GM.F_test);
                 }
 
-                F_sparse = GM.F_sparse;
+                
 
                 Solve();
             }
@@ -233,13 +236,15 @@ namespace ConsoleApp1
             //A = transmute_to_dense();
             //Shared_Field.Save_matrix(A, "A_sparse_after_transmutation.txt");
 
-            if (InsertedInfo.Test_another_matrix) Multiplicate();
+            //if (InsertedInfo.Test_another_matrix) Multiplicate();
 
             List<double> y;
             y = Direct_for_dense_Ly_F(GM.F_sparse);
             //foreach (var value in y) Console.WriteLine($"y_dense = {value}"); Console.WriteLine("");
             F = Reverse_for_dense_Ux_y(y);
-            //foreach (var value in F) Console.WriteLine($"F_dense = {value}");
+
+            if (InsertedInfo.Test_another_matrix)
+            foreach (var value in F) Console.WriteLine($"F_SSS = {value}");
         }
         List<double> F;
         public List<double> Answer

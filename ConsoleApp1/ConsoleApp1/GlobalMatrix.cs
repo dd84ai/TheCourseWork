@@ -29,9 +29,14 @@ namespace ConsoleApp1
         public List<List<double>> Test_dense;
         public List<List<Shared_Field.coordinate_cell>> Test_al = new List<List<Shared_Field.coordinate_cell>>(); //Нижний треугольник
         public List<List<Shared_Field.coordinate_cell>> Test_au = new List<List<Shared_Field.coordinate_cell>>(); //Верхний треугольник.
+        public List<double> F_test;
         void fill_test_test_dense()
         {
-            Test_dense = new List<List<double>>();
+            F_test = new List<double>();
+            for (int i = 0; i < Test_Size; i++)
+                F_test.Add(i + 1);
+
+                Test_dense = new List<List<double>>();
             for (int i = 0; i < Test_Size; i++)
             {
                 Test_dense.Add(new List<double>());
@@ -46,7 +51,7 @@ namespace ConsoleApp1
                 if (nullificate != i) Test_dense[nullificate][i] = 0;
                 else Test_dense[nullificate][i] = 1;
 
-            Random Rand = new Random(5);
+            /*Random Rand = new Random(5);
 
             for (int i = 0; i < Test_Size; i++)
             {
@@ -65,7 +70,7 @@ namespace ConsoleApp1
                 int r = Rand.Next(Test_Size);
                 if (i != r)
                     Test_dense[i][r] = 0;
-            }
+            */
 
         }
         void make_it_sparse()

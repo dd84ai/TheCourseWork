@@ -29,12 +29,20 @@ namespace ConsoleApp1
                 fe = GM.fe;
                 lm = GM.lm;
 
-                Size = fe.Size;
-                Size = fe.Size;
-                al = GM.al;
-                au = GM.au;
-                F_sparse = Shared_Field.CopyVectorFromToDouble(GM.F_sparse);
-
+                if (!InsertedInfo.Test_another_matrix)
+                {
+                    Size = fe.Size;
+                    al = GM.al;
+                    au = GM.au;
+                    F_sparse = Shared_Field.CopyVectorFromToDouble(GM.F_sparse);
+                }
+                else
+                {
+                    Size = GM.Test_Size;
+                    al = GM.Test_al;
+                    au = GM.Test_au;
+                    F_sparse = Shared_Field.CopyVectorFromToDouble(GM.F_test);
+                }
 
                 Solve();
 
@@ -171,6 +179,8 @@ namespace ConsoleApp1
         {
             MSG();
             F_list = new List<double>(X0);
+            if (InsertedInfo.Test_another_matrix)
+                foreach (var value in F_list) Console.WriteLine($"F_SMS = {value}");
         }
         public List<double> Answer
         {
