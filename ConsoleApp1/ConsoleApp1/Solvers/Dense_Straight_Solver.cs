@@ -14,35 +14,36 @@ namespace ConsoleApp1
         static GlobalMatrix GM;
         static int Size;
         static List<List<double>> A;
+        static List<double> F_local;
         public Dense_Straight_Solver(ref GlobalMatrix _GM)
         {
             F_list = new List<double>(new double[Size]);
-            if (InsertedInfo.Dense)
+            if (InsertedInfo.Dense && InsertedInfo.Dense_Straight)
             {
                 Console.WriteLine(this.ToString() + " initiated");
-                if (InsertedInfo.Dense)
+
+                GM = _GM;
+                gg = GM.gg;
+                fe = GM.fe;
+                lm = GM.lm;
+
+                if (InsertedInfo.Test_another_matrix)
                 {
-                    GM = _GM;
-                    gg = GM.gg;
-                    fe = GM.fe;
-                    lm = GM.lm;
-
-                    if (InsertedInfo.Test_another_matrix)
-                    {
-                        Size = GM.Test_Size;
-                        A = GM.Test_dense;
-                    }
-                    else
-                    {
-                        Size = fe.Size;
-                        A = GM.A_dense;
-                    }
-
-                    Solve();
-
-                    Shared_Field.Save_vector(Answer, "dd84ai_RGR_output_X0_dense_Straight_LU.txt");
-                    Shared_Field.Show_three_elements_from_vector(Answer);
+                    Size = GM.Test_Size;
+                    A = GM.Test_dense;
                 }
+                else
+                {
+                    Size = fe.Size;
+                    A = GM.A_dense;
+                    F_local = GM.F_dense;
+                }
+
+                Solve();
+
+                Shared_Field.Save_vector(Answer, "dd84ai_RGR_output_X0_dense_Straight_LU.txt");
+                Shared_Field.Show_three_elements_from_vector(Answer);
+
             }
         }
         void A_tranfroming_into_dense_LU()
@@ -132,7 +133,7 @@ namespace ConsoleApp1
 
             if (!InsertedInfo.Test_another_matrix)
             {
-                y = Direct_for_dense_Ly_F(GM.F_dense);
+                y = Direct_for_dense_Ly_F(F_local);
                 //foreach (var value in y) Console.WriteLine($"y_dense = {value}"); Console.WriteLine("");
                 F = Reverse_for_dense_Ux_y(y);
                 //foreach (var value in F) Console.WriteLine($"F_dense = {value}");

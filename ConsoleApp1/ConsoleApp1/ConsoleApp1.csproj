@@ -79,6 +79,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Graphic\Teleportator.designer.cs" />
+    <Compile Include="Solvers\Dense_MSG_Solver.cs" />
     <Compile Include="Solvers\Dense_Straight_Solver.cs" />
     <Compile Include="FE.cs" />
     <Compile Include="GlobalMatrix.cs" />
