@@ -13,6 +13,10 @@ namespace ConsoleApp1
         public static bool Sparse = true;
         public static bool Visualisation = true;
 
+        public static double U_analit(double x, double y, double z)
+        {
+            return x + y + z;
+        }
         /// <summary>
         /// Держи в уме формулку для нахождения аналитики
         ///     -d/dx(Lyambda*du/dx) * 
@@ -25,7 +29,7 @@ namespace ConsoleApp1
         /// <returns></returns>
         public static double f(double x, double y, double z)
         {
-            return Gamma * (x + y + z);
+            return Gamma * (U_analit(x,y,z));
             //return 0;
         }
         /// <summary>
@@ -35,10 +39,6 @@ namespace ConsoleApp1
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        public static double U_analit(double x, double y, double z)
-        {
-            return x + y + z;
-        }
 
         public class Point3D
         {

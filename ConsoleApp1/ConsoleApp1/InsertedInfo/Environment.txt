@@ -21,10 +21,10 @@
 1		1		1			1			1			1	
 //Grid.OS.Z=============================================
 //Starting Point, Quantity of points
-1.00e-0 2
-2.0e-0	3.0e-0
+1.00e-0 1
+5.0e-0	10.0e-0
 //Starting Step
-0.25	0.25		
+1	5		
 //Coefficient of Discharge
 1.0		1.0
 //Direction of Discharge
