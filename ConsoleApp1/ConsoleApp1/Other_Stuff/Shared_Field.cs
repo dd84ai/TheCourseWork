@@ -24,9 +24,12 @@ namespace ConsoleApp1
 
             return NewNeed;
         }
-        public static string[] StringSplitter(string SplitTarget)
+        public static string[] StringSplitter(StreamReader inputFile)
         {
-            string NeedToBeSplitted = SplitTarget;
+            string NeedToBeSplitted = inputFile.ReadLine();
+            while (NeedToBeSplitted[0] == '/' && NeedToBeSplitted[1] == '/')
+            { NeedToBeSplitted = inputFile.ReadLine(); }
+
             NeedToBeSplitted = NeedToBeSplitted.Replace('.', System.Globalization.NumberFormatInfo.CurrentInfo.NumberDecimalSeparator[0]);
             NeedToBeSplitted = NeedToBeSplitted.Replace(',', System.Globalization.NumberFormatInfo.CurrentInfo.NumberDecimalSeparator[0]);
             NeedToBeSplitted = NeedToBeSplitted.Replace('\t', ' ');

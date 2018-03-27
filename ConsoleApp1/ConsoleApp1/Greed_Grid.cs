@@ -62,18 +62,14 @@ namespace ConsoleApp1
 
         public void ReadAxe(StreamReader inputFile, ref Axe TargetAxe)
         {
-            string Trash = inputFile.ReadLine(); Trash = inputFile.ReadLine();
-            string[] Splitted = Shared_Field.StringSplitter(inputFile.ReadLine());
+            string[] Splitted = Shared_Field.StringSplitter(inputFile);
             TargetAxe.StartPoint = System.Convert.ToDouble(Splitted[0]);
             TargetAxe.Quantity = System.Convert.ToInt32(Splitted[1]);
 
-            string[] SplittedX = Shared_Field.StringSplitter(inputFile.ReadLine());
-            Trash = inputFile.ReadLine();
-            string[] SplittedStep = Shared_Field.StringSplitter(inputFile.ReadLine());
-            Trash = inputFile.ReadLine();
-            string[] SplittedRazryadka = Shared_Field.StringSplitter(inputFile.ReadLine());
-            Trash = inputFile.ReadLine();
-            string[] SplittedForwardOrBacward = Shared_Field.StringSplitter(inputFile.ReadLine());
+            string[] SplittedX = Shared_Field.StringSplitter(inputFile);
+            string[] SplittedStep = Shared_Field.StringSplitter(inputFile);
+            string[] SplittedRazryadka = Shared_Field.StringSplitter(inputFile);
+            string[] SplittedForwardOrBacward = Shared_Field.StringSplitter(inputFile);
             for (int i = 0, end = TargetAxe.Quantity; i < end; i++)
             {
                 TargetAxe.x.Add(System.Convert.ToDouble(SplittedX[i]));
@@ -112,7 +108,7 @@ namespace ConsoleApp1
 
                 {
                     Trash = inputFile.ReadLine();
-                    string[] Splitted = Shared_Field.StringSplitter(inputFile.ReadLine());
+                    string[] Splitted = Shared_Field.StringSplitter(inputFile);
                     AxeX.DoubleToAxe = System.Convert.ToInt32(Splitted[0]);
                     AxeY.DoubleToAxe = System.Convert.ToInt32(Splitted[1]);
                     AxeZ.DoubleToAxe = System.Convert.ToInt32(Splitted[2]);
