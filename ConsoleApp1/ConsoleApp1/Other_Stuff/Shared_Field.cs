@@ -76,7 +76,7 @@ namespace ConsoleApp1
         }
         public static List<List<double>> CopyMatrixFrom(List<List<double>> input)
         {
-            List<List<double>> Temp = new List<List<double>>();
+            /*List<List<double>> Temp = new List<List<double>>();
             foreach (var row in input)
             {
                 Temp.Add(new List<double>());
@@ -85,16 +85,18 @@ namespace ConsoleApp1
                     Temp[Temp.Count() - 1].Add(Convert.ToDouble(value.ToString("E30")));
                 }
               }      
-            return Temp;
+            return Temp;*/
+            return input;
         }
         public static List<double> CopyVectorFrom(List<double> input)
         {
-            List<double> Temp = new List<double>(input);
+            /*List<double> Temp = new List<double>(input);
             foreach (var value in input)
             {
                 Temp.Add(value);
             }
-                return Temp;
+                return Temp;*/
+            return input;
         }
         public static double[] CopyVectorFromToDouble(List<double> input)
         {
@@ -109,7 +111,7 @@ namespace ConsoleApp1
         }
         public static List<List<coordinate_cell>> CopyListCC(List<List<coordinate_cell>> input)
         {
-            List<List<coordinate_cell>> Temp = new List<List<coordinate_cell>>();
+            /*List<List<coordinate_cell>> Temp = new List<List<coordinate_cell>>();
             int i = 0;
             foreach (var row in input)
             {
@@ -120,7 +122,8 @@ namespace ConsoleApp1
                     i++;
                 }
             }
-            return Temp;
+            return Temp;*/
+            return input;
         }
         public class coordinate_cell : IEquatable<coordinate_cell>
         {

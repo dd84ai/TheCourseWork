@@ -32,9 +32,9 @@ namespace ConsoleApp1
                 if (!InsertedInfo.Test_another_matrix)
                 {
                     Size = fe.Size;
-                    al = Shared_Field.CopyListCC(GM.al);
-                    au = Shared_Field.CopyListCC(GM.au);
-                    F_sparse = Shared_Field.CopyVectorFrom(GM.F_sparse);
+                    al = GM.al;
+                    au = GM.au;
+                    F_sparse = GM.F_sparse;
                 }
                 else
                 {

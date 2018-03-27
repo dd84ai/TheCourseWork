@@ -18,11 +18,12 @@ namespace ConsoleApp1
             gg = fe.greedy_grid;
             lm = _locmat;
 
-
-            Test_Size = 6;
-            fill_test_test_dense();
-            make_it_sparse();
-
+            if (InsertedInfo.Test_another_matrix)
+            {
+                Test_Size = 6;
+                fill_test_test_dense();
+                make_it_sparse();
+            }
             Wrapped_Global_Matrix_Constructer();
         }
         public int Test_Size;
