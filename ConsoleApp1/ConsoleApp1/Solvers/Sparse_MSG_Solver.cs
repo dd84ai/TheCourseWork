@@ -155,14 +155,14 @@ namespace ConsoleApp1
             X0 = new double[Size];
             vect_a_equals_0(X0); /* X0 = 0 */
             double vect_norma_F = vect_norma(F_sparse);
-            for (int i = 0; i < Size; i++) X0[i] = (double)(i + 1);
+            //for (int i = 0; i < Size; i++) X0[i] = (double)(i + 1);
 
             R = multiplicate_Ax(X0); // R = A*x
-            for (int i = 0; i < Size; i++) if (R[i] != Tester.R_vector1[i]) Console.WriteLine("Rvector1");
+            //for (int i = 0; i < Size; i++) if (R[i] != Tester.R_vector1[i]) Console.WriteLine("Rvector1");
             R = vect_b_minus_c(F_sparse, R); // R = F - R
-            for (int i = 0; i < Size; i++) if (R[i] != Tester.R_vector2[i]) Console.WriteLine("Rvector2");
+            //for (int i = 0; i < Size; i++) if (R[i] != Tester.R_vector2[i]) Console.WriteLine("Rvector2");
             Z = multiplicate_ATx(R); // z = At*R
-            for (int i = 0; i < Size; i++) if (Z[i] != Tester.Z_vector1[i]) Console.WriteLine("Zvector1");
+            //for (int i = 0; i < Size; i++) if (Z[i] != Tester.Z_vector1[i]) Console.WriteLine("Zvector1");
             vect_a_equals_b(R, Z); // r = z
 
             for (int iter = 1; iter < Maxiter; iter++)

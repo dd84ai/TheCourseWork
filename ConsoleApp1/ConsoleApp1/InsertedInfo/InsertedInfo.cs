@@ -68,7 +68,7 @@ namespace ConsoleApp1
             Points.Add(new Point3D((double)5 / 3, (double)5 / 3, (double)5 / 3));
         }
 
-        public static bool Test_another_matrix = true;
+        public static bool Test_another_matrix = false;
         public static bool Test_disabled_boundaries = false;
     }
 }

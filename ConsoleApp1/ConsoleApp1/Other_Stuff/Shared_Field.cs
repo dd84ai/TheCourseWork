@@ -92,7 +92,7 @@ namespace ConsoleApp1
             List<double> Temp = new List<double>(input);
             foreach (var value in input)
             {
-                Temp.Add(Convert.ToDouble(value.ToString("E30")));
+                Temp.Add(value);
             }
                 return Temp;
         }
