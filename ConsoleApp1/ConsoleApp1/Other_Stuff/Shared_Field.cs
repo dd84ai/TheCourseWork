@@ -78,18 +78,49 @@ namespace ConsoleApp1
         {
             List<List<double>> Temp = new List<List<double>>();
             foreach (var row in input)
-                Temp.Add(new List<double>(row.ToArray()));
+            {
+                Temp.Add(new List<double>());
+                foreach (var value in row)
+                {
+                    Temp[Temp.Count() - 1].Add(Convert.ToDouble(value.ToString("E30")));
+                }
+              }      
             return Temp;
         }
         public static List<double> CopyVectorFrom(List<double> input)
         {
-            List<double> Temp = new List<double>(input.ToArray());
-                
-            return Temp;
+            List<double> Temp = new List<double>(input);
+            foreach (var value in input)
+            {
+                Temp.Add(Convert.ToDouble(value.ToString("E30")));
+            }
+                return Temp;
         }
         public static double[] CopyVectorFromToDouble(List<double> input)
         {
-            return input.ToArray();
+            double[] Temp = new double[input.Count()];
+            int i = 0;
+            foreach (var value in input)
+            {
+                Temp[i] = (Convert.ToDouble(value.ToString("E30")));
+                i++;
+            }
+            return Temp;
+        }
+        public static List<List<coordinate_cell>> CopyListCC(List<List<coordinate_cell>> input)
+        {
+            List<List<coordinate_cell>> Temp = new List<List<coordinate_cell>>();
+            int i = 0;
+            foreach (var row in input)
+            {
+                Temp.Add(new List<coordinate_cell>());
+                foreach (var item in row)
+                {
+                    Temp[Temp.Count()-1].Add(new coordinate_cell(Convert.ToDouble(item.value.ToString("E30")), item.position));
+                    i++;
+                }
+            }
+            return Temp;
         }
         public class coordinate_cell : IEquatable<coordinate_cell>
         {
@@ -149,11 +180,19 @@ namespace ConsoleApp1
     }
     public static class Test
     {
-        public static List<double> F = null;
-        public static List<List<double>> A = null;
+        public static List<double> F = new List<double>();
+        public static List<List<double>> A = new List<List<double>>();
         public static int Size = 0;
 
 
         public static List<List<double>> A_old_dense_LU = new List<List<double>>();
+        public static List<List<double>> A_dense_before_LU = new List<List<double>>();
+
+    }
+    public class Tester
+    {
+        public static List<double> R_vector1 = new List<double>();
+        public static List<double> R_vector2 = new List<double>();
+        public static List<double>  Z_vector1 = new List<double>();
     }
 }

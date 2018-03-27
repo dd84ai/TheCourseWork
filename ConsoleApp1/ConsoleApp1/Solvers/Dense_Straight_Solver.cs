@@ -30,7 +30,7 @@ namespace ConsoleApp1
                 if (InsertedInfo.Test_another_matrix)
                 {
                     Size = GM.Test_Size;
-                    A = GM.Test_dense;
+                    A = Shared_Field.CopyMatrixFrom(GM.Test_dense);
                     F_local = Shared_Field.CopyVectorFrom(GM.F_test);
                 }
                 else

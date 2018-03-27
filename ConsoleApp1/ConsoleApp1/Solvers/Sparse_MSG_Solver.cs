@@ -32,15 +32,15 @@ namespace ConsoleApp1
                 if (!InsertedInfo.Test_another_matrix)
                 {
                     Size = fe.Size;
-                    al = GM.al;
-                    au = GM.au;
+                    al = Shared_Field.CopyListCC(GM.al);
+                    au = Shared_Field.CopyListCC(GM.au);
                     F_sparse = Shared_Field.CopyVectorFromToDouble(GM.F_sparse);
                 }
                 else
                 {
                     Size = GM.Test_Size;
-                    al = GM.Test_al;
-                    au = GM.Test_au;
+                    al = Shared_Field.CopyListCC(GM.Test_al);
+                    au = Shared_Field.CopyListCC(GM.Test_au);
                     F_sparse = Shared_Field.CopyVectorFromToDouble(GM.F_test);
                 }
 
@@ -109,11 +109,15 @@ namespace ConsoleApp1
             {
                 for (int j = 0; j < al[i].Count(); j++)
                 {
+                    if (i == 19)
+                        Console.Write("");
                     b[i] += al[i][j].value * x[al[i][j].position];
                 }
 
                 for (int j = 0; j < au[i].Count(); j++)
                 {
+                    if (19 == au[i][j].position)
+                        Console.Write("");
                     b[au[i][j].position] += au[i][j].value * x[i];
                 }
 
@@ -151,10 +155,14 @@ namespace ConsoleApp1
             X0 = new double[Size];
             vect_a_equals_0(X0); /* X0 = 0 */
             double vect_norma_F = vect_norma(F_sparse);
+            for (int i = 0; i < Size; i++) X0[i] = (double)(i + 1);
 
             R = multiplicate_Ax(X0); // R = A*x
+            for (int i = 0; i < Size; i++) if (R[i] != Tester.R_vector1[i]) Console.WriteLine("Rvector1");
             R = vect_b_minus_c(F_sparse, R); // R = F - R
+            for (int i = 0; i < Size; i++) if (R[i] != Tester.R_vector2[i]) Console.WriteLine("Rvector2");
             Z = multiplicate_ATx(R); // z = At*R
+            for (int i = 0; i < Size; i++) if (Z[i] != Tester.Z_vector1[i]) Console.WriteLine("Zvector1");
             vect_a_equals_b(R, Z); // r = z
 
             for (int iter = 1; iter < Maxiter; iter++)

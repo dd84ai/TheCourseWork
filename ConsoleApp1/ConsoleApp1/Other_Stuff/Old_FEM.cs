@@ -696,6 +696,8 @@ namespace ConsoleApp1
                     {
                         if (i - Size_sparse + j >= 0)
                         {
+                            if (i == 19 || i - Size_sparse + j == 19)
+                                Console.Write("");
                             b[i] += aGgl[i, j] * x[i - Size_sparse + j];
                             b[i - Size_sparse + j] += aGgu[i, j] * x[i];
                         }
@@ -828,10 +830,14 @@ namespace ConsoleApp1
                 X0 = new double[Size];
                 vect_a_equals_0(X0); /* X0 = 0 */
                 double vect_norma_F = vect_norma(F);
+                for (int i = 0; i < Size; i++) X0[i] = (double)(i+1);
 
                 R = multiplicate_Ax(X0); // R = A*x
+                foreach (var value in R) Tester.R_vector1.Add(value);
                 R = vect_b_minus_c(F_sparse, R); // R = F - R
+                foreach (var value in R) Tester.R_vector2.Add(value);
                 Z = multiplicate_ATx(R); // z = At*R
+                foreach (var value in Z) Tester.Z_vector1.Add(value);
                 vect_a_equals_b(R, Z); // r = z
 
                 for (int iter = 1; iter < Maxiter; iter++)
@@ -840,7 +846,9 @@ namespace ConsoleApp1
                     if ((Test = Math.Sqrt(scalarRR = vect_scalar_a_and_b(R, R))) / vect_norma_F < E) { is_answer_correct = true; break; }
 
                     P = multiplicate_Ax(Z); // P = A*Z
+                    
                     Ar = multiplicate_ATx(P); // Ar = At*P
+                    
                     a = scalarRR / vect_scalar_a_and_b(Ar, Z); //a=(R,R)/(Ar,z)
 
                     vect_a_plus_equals_b_plus_c_times_const(X0, X0, Z, a); //X0 = X0 + a*Z
@@ -935,17 +943,37 @@ namespace ConsoleApp1
                 //Шаг четвертый. Посчитать СЛАУ.
                 y = new double[Size];
 
+                Test.Size = Size;
+                for (int i = 0; i < Size; i++)
+                {
+                    Test.A_dense_before_LU.Add(new List<double>());
+                    for (int j = 0; j < Size; j++)
+                    {
+                        double Testing = A[i, j];
+                        Test.A_dense_before_LU[i].Add(Convert.ToDouble(A[i, j].ToString()));
+                        //Test.A_dense_before_LU[i].Add(Testing);
+                    }
+                }
+
+                Test.Size = Size;
+                for (int i = 0; i < Size; i++)
+                {
+                    Test.A.Add(new List<double>());
+                    for (int j = 0; j < Size; j++)
+                        Test.A[i].Add(A[i, j]);
+                }
+
+                copy_M_to_LUM();
+
 #if (Defined_dense_LU_matrix_is_online)
                 A_tranfroming_into_dense_LU(); if (debug) Show_matrix(A);
+
                 for (int i = 0; i < Size; i++)
                 {
                     Test.A_old_dense_LU.Add(new List<double>());
                     for (int j = 0; j < Size; j++)
                         Test.A_old_dense_LU[i].Add(A[i, j]);
                 }
-
-                copy_M_to_LUM();
-
 
                 y = Direct_for_dense_Ly_F(F); if (debug) Show_vector(y);
                 F = Reverse_for_dense_Ux_y(y); if (debug) Show_vector(F);

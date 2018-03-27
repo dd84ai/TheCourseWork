@@ -34,7 +34,7 @@ namespace ConsoleApp1
         {
             F_test = Test.F;
             Test_Size = Test.Size;
-            Test_dense = Test.A;
+            Test_dense = Test.A_dense_before_LU;
             /*F_test = new List<double>();
             for (int i = 0; i < Test_Size; i++)
                 F_test.Add(i + 1);
