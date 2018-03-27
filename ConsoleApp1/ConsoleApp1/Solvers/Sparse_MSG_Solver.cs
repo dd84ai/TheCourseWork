@@ -99,7 +99,7 @@ namespace ConsoleApp1
             for (int i = 0; i < Size; i++)
                 a[i] = b[i] + c[i] * cons;
         }
-        static int Maxiter = 20000;
+        static int Maxiter = 10000;
         static double E = 1e-20;
         static double[] multiplicate_Ax(double[] x)
         {
@@ -188,7 +188,7 @@ namespace ConsoleApp1
         {
             MSG();
             F_list = new List<double>(X0);
-            if (InsertedInfo.Test_another_matrix)
+            if (InsertedInfo.Test_another_matrix && InsertedInfo.Show_F_SSS_DSS)
                 foreach (var value in F_list) Console.WriteLine($"F_SMS = {value}");
         }
         public List<double> Answer

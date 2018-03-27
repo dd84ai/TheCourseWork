@@ -147,7 +147,7 @@ namespace ConsoleApp1
                 //foreach (var value in F) Console.WriteLine($"F_dense = {value}");
                 F_list = F.ToList();
             
-            if (InsertedInfo.Test_another_matrix)
+            if (InsertedInfo.Test_another_matrix && InsertedInfo.Show_F_SSS_DSS)
                 foreach (var value in F_list) Console.WriteLine($"F_DSS = {value}");
         }
         public List<double> Answer

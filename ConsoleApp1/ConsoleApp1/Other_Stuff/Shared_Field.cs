@@ -76,27 +76,27 @@ namespace ConsoleApp1
         }
         public static List<List<double>> CopyMatrixFrom(List<List<double>> input)
         {
-            /*List<List<double>> Temp = new List<List<double>>();
+            List<List<double>> Temp = new List<List<double>>();
             foreach (var row in input)
             {
                 Temp.Add(new List<double>());
                 foreach (var value in row)
                 {
-                    Temp[Temp.Count() - 1].Add(Convert.ToDouble(value.ToString("E30")));
+                    Temp[Temp.Count() - 1].Add(value);
                 }
               }      
-            return Temp;*/
-            return input;
+            return Temp;
+            //return input;
         }
         public static List<double> CopyVectorFrom(List<double> input)
         {
-            /*List<double> Temp = new List<double>(input);
+            List<double> Temp = new List<double>(input);
             foreach (var value in input)
             {
                 Temp.Add(value);
             }
-                return Temp;*/
-            return input;
+                return Temp;
+            //return input;
         }
         public static double[] CopyVectorFromToDouble(List<double> input)
         {
@@ -104,26 +104,26 @@ namespace ConsoleApp1
             int i = 0;
             foreach (var value in input)
             {
-                Temp[i] = (Convert.ToDouble(value.ToString("E30")));
+                Temp[i] = value;
                 i++;
             }
             return Temp;
         }
         public static List<List<coordinate_cell>> CopyListCC(List<List<coordinate_cell>> input)
         {
-            /*List<List<coordinate_cell>> Temp = new List<List<coordinate_cell>>();
+            List<List<coordinate_cell>> Temp = new List<List<coordinate_cell>>();
             int i = 0;
             foreach (var row in input)
             {
                 Temp.Add(new List<coordinate_cell>());
                 foreach (var item in row)
                 {
-                    Temp[Temp.Count()-1].Add(new coordinate_cell(Convert.ToDouble(item.value.ToString("E30")), item.position));
+                    Temp[Temp.Count()-1].Add(new coordinate_cell(item.value, item.position));
                     i++;
                 }
             }
-            return Temp;*/
-            return input;
+            return Temp;
+            //return input;
         }
         public class coordinate_cell : IEquatable<coordinate_cell>
         {

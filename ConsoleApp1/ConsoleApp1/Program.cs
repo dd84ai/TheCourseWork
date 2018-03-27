@@ -22,8 +22,11 @@ namespace ConsoleApp1
             I.Greetings();
 
             DateTime start = DateTime.Now;
-            //Old_Fem old_Fem = new Old_Fem();
-            //Console.WriteLine("__________FROM OLD TO NEW__________");
+            if (InsertedInfo.Test_another_matrix)
+            {
+                Old_Fem old_Fem = new Old_Fem();
+                Console.WriteLine("__________FROM OLD TO NEW__________");
+            }
             New_FEM new_FEM = new New_FEM();
             TimeSpan timeItTook = DateTime.Now - start;
             Console.WriteLine($"timeItTook = {timeItTook.TotalSeconds}");
