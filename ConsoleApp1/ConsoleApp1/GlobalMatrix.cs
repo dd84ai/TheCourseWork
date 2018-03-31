@@ -192,16 +192,9 @@ namespace ConsoleApp1
                         }
                         if (InsertedInfo.Sparse)
                         {
-                            //di = Shared_Field.Init_vector(fe.Size);
-                            //al = new List<List<coordinate_cell>>(); //Нижний треугольник
-                            //au = new List<List<coordinate_cell>>(); //Верхний треугольник.
                             for (int h = 0; h < 8; h++)
                                 for (int m = 0; m < 8; m++)
                                 {
-                                    //Если диагональный элемент
-                                    //if (ind[h] == ind[m]) di[ind[h]] += G[h][m] + M[h][m];
-                                    //Иначе если нижний треугольник
-                                    //else 
                                     if (ind[h] > ind[m])
                                     {
                                         int index = al[ind[h]].FindIndex(x => x.position == ind[m]);
@@ -213,8 +206,7 @@ namespace ConsoleApp1
                                         int index = au[ind[m]].FindIndex(x => x.position == ind[h]);
                                         if (index == -1) au[ind[m]].Add(new Shared_Field.coordinate_cell(G[h][m] + M[h][m], ind[h]));
                                         else au[ind[m]][index].value += G[h][m] + M[h][m];
-                                    }
-                                    //A_dense[ind[h]][ind[m]] += G[h][m] + M[h][m];
+                                    } 
                                 }
 
                             for (int l = 0; l < 8; l++)
@@ -268,10 +260,6 @@ namespace ConsoleApp1
                             else au[i].RemoveAt(index);
                 }
 
-                //Потеряли диагональку
-                //index = au[boundary.fe_number].FindIndex(x => x.position == boundary.fe_number);
-                //if (index == - 1) au[boundary.fe_number].Add(new Shared_Field.coordinate_cell(1,boundary.fe_number));
-
                 int x_index = Reverse_global_number_to_x_index(boundary.fe_number);
                 int y_index = Reverse_global_number_to_y_index(boundary.fe_number);
                 int z_index = Reverse_global_number_to_z_index(boundary.fe_number);
@@ -307,16 +295,6 @@ namespace ConsoleApp1
             int j1 = (j + 1) * (gg.OS_X.Count());
             int k0 = (k) * (gg.OS_X.Count() * gg.OS_Y.Count());
             int k1 = (k + 1) * (gg.OS_X.Count() * gg.OS_Y.Count());
-
-            //ind[0] = i + (j) * (gg.OS_X.Count());
-            //ind[1] = (i + 1) + (j) * (gg.OS_X.Count());
-            //ind[2] = i + (j + 1) * (gg.OS_X.Count());
-            //ind[3] = (i + 1) + (j + 1) * (gg.OS_X.Count());
-
-            //ind[0] = i0 + j0;
-            //ind[1] = i1 + j0;
-            //ind[2] = i0 + j1;
-            //ind[3] = i1 + j1;
 
             ind[0] = i0 + j0 + k0;
             ind[1] = i1 + j0 + k0;

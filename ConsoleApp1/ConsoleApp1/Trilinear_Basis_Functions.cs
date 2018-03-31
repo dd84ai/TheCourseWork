@@ -56,17 +56,6 @@ namespace ConsoleApp1
 
             List<int> ind = new List<int>(new int[8]);
             GM.I_desire_to_recieve_my_indexes(ref ind, X_Axe_Number, Y_Axe_Number, Z_Axe_Number);
-            //Console.WriteLine("check KE =\r\n X: {0};{1};\r\nY:{2};{3}", X[X_Axe_Number], X[X_Axe_Number + 1], Y[Y_Axe_Number], Y[Y_Axe_Number + 1]);
-
-            //int global_number_left_bottom = X_Axe_Number + Y_Axe_Number * X_count;
-            //int global_number_right_bottom = X_Axe_Number + 1 + Y_Axe_Number * X_count;
-            //int global_number_left_top = X_Axe_Number + (Y_Axe_Number + 1) * X_count;
-            //int global_number_right_top = X_Axe_Number + 1 + (Y_Axe_Number + 1) * X_count;
-
-            //Console.WriteLine("global_number_left_bottom = {0}", X_sparse[global_number_left_bottom]);
-            //Console.WriteLine("global_number_right_bottom = {0}", X_sparse[global_number_right_bottom]);
-            //Console.WriteLine("global_number_left_top = {0}", X_sparse[global_number_left_top]);
-            //Console.WriteLine("global_number_right_top = {0}", X_sparse[global_number_right_top]);
 
             double hx = gg.OS_X[X_Axe_Number + 1] - gg.OS_X[X_Axe_Number];
             double hy = gg.OS_Y[Y_Axe_Number + 1] - gg.OS_Y[Y_Axe_Number];

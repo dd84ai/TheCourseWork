@@ -1523,7 +1523,7 @@ namespace slae_project
 
             float temp_procent_color = (float)((value - double_min) / (double_max - double_min));
 
-            gl.Color(temp_procent_color, 0.0f, 1.0f - temp_procent_color, 1.0f); //Must have, weirdness!
+            gl.Color(1.0 - temp_procent_color, 1.0 - temp_procent_color, 1.0 - temp_procent_color, 1.0f); //Must have, weirdness!
             gl.Begin(OpenGL.GL_QUADS);
 
             Single Line_Height = -0.4f;

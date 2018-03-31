@@ -59,16 +59,7 @@ namespace ConsoleApp1
                 if (al[i].Count() != 0)
                     for (int j = al[i][0].position; j < i; j++)
                     {
-                        /*sum = 0;
 
-                        for (int k = 0; k < al[i].Count() && al[i][k].position < j; k++)
-                        {
-                            int index = au[j].FindIndex(x => x.position == al[i][k].position);
-                            if (index != -1)
-                                sum += al[i][k].value * au[j][index].value;
-                        }*/
-
-                        //WoW. It works faster
                         sum = 0;
                         int h = 0;
                         for (int k = 0; k < al[i].Count() && al[i][k].position < j && h < au[j].Count() && au[j][h].position < i; k++)
@@ -104,21 +95,7 @@ namespace ConsoleApp1
                 if (au[i].Count != 0)
                     for (int j = au[i][0].position; j <= i; j++)
                     {
-                        /*for (int k = 0; k < al[i].Count() && al[i][k].position < j; k++)
-                        {
-                            int index = au[j].FindIndex(x => x.position == al[i][k].position);
-                            if (index != -1)
-                                sum += al[i][k].value * au[j][index].value;
-                        }
-                        */
-                       /*sum = 0;
-                        for (int k = 0; k < au[i].Count() && au[i][k].position < j; k++)
-                        {
 
-                            int index = al[j].FindIndex(x => x.position == au[i][k].position);
-                            if (index != -1)
-                                sum += al[j][index].value * au[i][k].value;
-                        }*/
                         sum = 0;
                         int h = 0;
                         for (int k = 0; k < au[i].Count() && au[i][k].position < j && h < al[j].Count() && al[j][h].position < i; k++)

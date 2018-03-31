@@ -63,21 +63,24 @@ namespace ConsoleApp1
                 for (int j = 0; j < Y.Count(); j++)
                     for (int k = 0; k < Z.Count(); k++, element_counter++)
                     {
-                        //elems.Add(new cell_of_FE(X[i], X[i + 1],
-                        //   Y[j], Y[j + 1],
-                        //    Z[k], Z[k + 1]));
 
-                        if (i == 0)             elems_which_bounders.Add(new bounder(element_counter, Sides.left));
+                        if (i == 0)
+                            elems_which_bounders.Add(new bounder(element_counter, Sides.left));
                         else
-                        if (i == X.Count() - 1) elems_which_bounders.Add(new bounder(element_counter, Sides.right));
+                        if (i == X.Count() - 1)
+                            elems_which_bounders.Add(new bounder(element_counter, Sides.right));
                         else
-                        if (j == 0)             elems_which_bounders.Add(new bounder(element_counter, Sides.bottom));
+                        if (j == 0)
+                            elems_which_bounders.Add(new bounder(element_counter, Sides.bottom));
                         else
-                        if (j == Y.Count() - 1) elems_which_bounders.Add(new bounder(element_counter, Sides.top));
+                        if (j == Y.Count() - 1)
+                            elems_which_bounders.Add(new bounder(element_counter, Sides.top));
                         else
-                        if (k == 0)             elems_which_bounders.Add(new bounder(element_counter, Sides.front));
+                        if (k == 0)
+                            elems_which_bounders.Add(new bounder(element_counter, Sides.front));
                         else
-                        if (k == Z.Count() - 1) elems_which_bounders.Add(new bounder(element_counter, Sides.back));
+                        if (k == Z.Count() - 1)
+                            elems_which_bounders.Add(new bounder(element_counter, Sides.back));
                     }
             Console.WriteLine();
         }
