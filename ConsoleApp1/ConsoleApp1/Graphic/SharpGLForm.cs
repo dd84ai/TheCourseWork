@@ -247,7 +247,12 @@ namespace slae_project
         /// <param name="e"></param>
         private void button_exit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Visible = false;
+
+            int result = I.Pause();
+
+            if (result == 42) this.Visible = true;
+            else if (result == 46) this.Close();
         }
 
         void setMouseData()

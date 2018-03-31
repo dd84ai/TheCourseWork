@@ -33,7 +33,7 @@ namespace ConsoleApp1
             {
                 switch (awaiter.KeyChar)
                 {
-                    case 'r': return 0;
+                    case 'r': return 42;
                     case 'q': return 46;
                     default: SaySomeQuote(); break;
                 }
