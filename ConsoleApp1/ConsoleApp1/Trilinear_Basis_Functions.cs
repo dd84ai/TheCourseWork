@@ -34,25 +34,26 @@ namespace ConsoleApp1
         }
         public double Calculate(InsertedInfo.Point3D point)
         {
+            Console.Write("");
             //Шаг первый. ищем номер ячейки в Оси Х и оси Y
             int X_Axe_Number = 0, Y_Axe_Number = 0, Z_Axe_Number = 0;
 
+            bool found_x = false, found_y = false, found_z = false;
+
             //Мы нашли левый узел по Икс
             for (int i = 0; i < gg.OS_X.Count(); i++)
-                if (gg.OS_X[i] < point.x) X_Axe_Number = i;
+                if (gg.OS_X[i] < point.x) { X_Axe_Number = i; found_x = true; } else break;
 
             //Мы нашли нижний узел по Игрек
             for (int i = 0; i < gg.OS_Y.Count(); i++)
-                if (gg.OS_Y[i] < point.y) Y_Axe_Number = i;
+                if (gg.OS_Y[i] < point.y) {Y_Axe_Number = i; found_y = true; } else break;
 
             //Мы нашли нижний узел по Зет
             for (int i = 0; i < gg.OS_Z.Count(); i++)
-                if (gg.OS_Z[i] < point.z) Z_Axe_Number = i;
+                if (gg.OS_Z[i] < point.z) {Z_Axe_Number = i; found_z = true; } else break;
 
-            if (X_Axe_Number == gg.OS_X.Count() - 1 ||
-                Y_Axe_Number == gg.OS_Y.Count() - 1 ||
-                Z_Axe_Number == gg.OS_Z.Count() - 1)
-                return double.NaN;
+            if (found_x && found_y && found_z) { }
+                else return double.NaN;
 
             List<int> ind = new List<int>(new int[8]);
             GM.I_desire_to_recieve_my_indexes(ref ind, X_Axe_Number, Y_Axe_Number, Z_Axe_Number);

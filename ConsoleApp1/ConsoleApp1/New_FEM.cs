@@ -44,6 +44,9 @@ namespace ConsoleApp1
                     //if (InsertedInfo.Visualisation) TBF_sparse_MSG.Visialize(SSS.Answer);
                 }
 
+                List<double> analitical_answer = new List<double>();
+                foreach (var point in II.Points) analitical_answer.Add(InsertedInfo.U_analit(point.x, point.y, point.z));
+                Shared_Field.Save_vector(analitical_answer, "dd84ai_AAA.txt");
             }
             Console.Write("");
         }
