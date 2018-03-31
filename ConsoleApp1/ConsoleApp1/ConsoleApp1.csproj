@@ -102,6 +102,5 @@
   <ItemGroup>
     <Content Include="InsertedInfo\Environment.txt" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

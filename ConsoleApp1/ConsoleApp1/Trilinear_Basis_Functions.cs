@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using slae_project;
 namespace ConsoleApp1
 {
-    class Trilinear_Basis_Functions
+    public class Trilinear_Basis_Functions
     {
         static Greed_Grid gg;
         static LocalMatrixes lm;
@@ -116,13 +116,9 @@ namespace ConsoleApp1
                     }
             }
 
-            SharpGL_limbo.SharpGL_Open_hidden();
-
             for (int i = 0; i < Graphic_Answer.Count(); i++)
-                SharpGL_limbo.List_Of_Objects.Add(new GraphicData.GraphicObject("z_index = " + i, Graphic_Answer[i]));
+                SharpGL_limbo.SharpForm.GD.List_Of_Objects.Add(new GraphicData.GraphicObject("z_index = " + i, Graphic_Answer[i]));
 
-            SharpGL_limbo.Refresh_Window();
-            SharpGL_limbo.SharpGL_Open();
         }
     }
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace ConsoleApp1
+using System.IO;//files
+namespace slae_project
 {
     //Класс взаимодействия с внешним миром.
     public static class SharpGL_limbo
@@ -31,14 +31,10 @@ namespace ConsoleApp1
             if (SharpGL_is_opened()) SharpForm.Refresh_Window();
         }
 
-        private class UR_access : UserGuide
+        public static void Clear_Window()
         {
-            public void UserGuide_access(ref List<GraphicData.GraphicObject> List_Of_Objects)
-            {
-                User_Guide_To_Graphic(ref List_Of_Objects);
-            }
+            if (SharpGL_is_opened()) SharpForm.Clear_Window();
         }
-        static UR_access UR = new UR_access();
         //Конструктор. Параметр самовызова для ленивости.
         /*public static SharpGL_limbo(bool SelfInit = false)
         {
@@ -84,9 +80,9 @@ namespace ConsoleApp1
         /// </summary>
         /// <param name="path">Путь к файлу</param>
         /// <param name="numObject">Номер матрицы в массиве объектов</param>
-        static public void ReadMatrix(string path, int numObject)
+        static public void ReadMatrix(string path, int numObject, bool BoolMessage = true)
         {
-            SharpForm.ReadMatrix(path,numObject);
+            SharpForm.ReadMatrix(path,numObject, BoolMessage);
 
         }
 
@@ -97,20 +93,32 @@ namespace ConsoleApp1
             List_Of_Objects = SharpForm.GD.List_Of_Objects;
         }
 
+        static public void SharpGL_ClickShow()
+        {
+            SharpForm.Wrapped_Refreash_And_Show_Clicker();
+        }
         //Открывает сразу видимым. Можно добавлять матрицы.
         static public void SharpGL_Open()
         {
             if (!SharpGL_is_opened()) SharpForm = new SharpGLForm(true);
+            //else SharpForm.Wrapped_Refreash_And_Show_Clicker();
             List_Of_Objects = SharpForm.GD.List_Of_Objects;
             SharpForm.Show();
+        }
+        static public void SharpGL_add_Factory_things()
+        {
+            
         }
         //Запуск в тестовом режиме.
         static public void SharpGL_Open_Test()
         {
-            SharpGL_Open();
-            UR.UserGuide_access(ref List_Of_Objects);
-            Refresh_Window();
-        }
+            //SharpGL_Open();
+            //UR.UserGuide_access(ref List_Of_Objects);
+            //Refresh_Window();
+
+            
+    }
+
         //закрывает окно графики если оно существует. Совсем закрыть
         //По умолчанию открыто скрытым.
         static public void SharpGL_Close()
@@ -167,9 +175,9 @@ namespace ConsoleApp1
             List<double> listed_vectorik = new List<double>() { 1, 2, 3, 4, 5 };
             List<List<double>> listed_matrix = new List<List<double>>() { new List<double> { 1, 2 }, new List<double> { 3, 4 }, new List<double> { 5, 6 } };
 
-            double[,] bigdouble = new double[1000, 1000];
-            for (int i = 0; i < 1000; i++)
-                for (int j = 0; j < 1000; j++) bigdouble[i, j] = i + j;
+            double[,] bigdouble = new double[100, 100];
+            for (int i = 0; i < 100; i++)
+                for (int j = 0; j < 100; j++) bigdouble[i, j] = i + j;
             //Добавление объектов на отображение.
             //Имя и Число/Вектор/Матрица в формате (double, double[], double[,], List<double>, List<List<double>>) на выбор.
             List_Of_Objects.Add(new GraphicData.GraphicObject("vector4ik", vector4ik));
@@ -177,15 +185,25 @@ namespace ConsoleApp1
             List_Of_Objects.Add(new GraphicData.GraphicObject("listed_vectorik", listed_vectorik));
             List_Of_Objects.Add(new GraphicData.GraphicObject("listed_matrix", listed_matrix));
             List_Of_Objects.Add(new GraphicData.GraphicObject("listed_matrix", listed_matrix));
+            //SharpGL_limbo.ReadMatrix(ProjectPath + "\\Graphic\\GraphicData_Magneto.txt", List_Of_Objects.Count(),false);
             List_Of_Objects.Add(new GraphicData.GraphicObject("bigdouble", bigdouble));
-            List_Of_Objects.Add(new GraphicData.GraphicObject("Imatrix", 0,5,5));
-            List_Of_Objects.Add(new GraphicData.GraphicObject("Matrix", randomMatrix));
+            //List_Of_Objects.Add(new GraphicData.GraphicObject("Imatrix", 5,5));
+
+            //List_Of_Objects.Add(new GraphicData.GraphicObject("Matrix", randomMatrix));
+
             //this.List_Of_Objects.RemoveAt(1); Удалить какойто конкретный
             //this.List_Of_Objects.Clear(); //Удалить все.
             //this.List_Of_Objects.RemoveAt(List_Of_Objects.Count() - 1); //Удалить последний
 
             //ВАЖНО! После добавлений или удалений вызывать вот эту функцию.
             //SharpGL_limbo.Refresh_Window();
+
+            List<double> Temp = new List<double>();
+            for (int i = 0; i <= 100; i++)
+                Temp.Add(Math.Sin((double)2*Math.PI*i/100));
+
+            List_Of_Objects.Add(new GraphicData.GraphicObject("Cъешь ещё этих мягких французских булок, да выпей чаю", Temp, true));
         }
+        public string ProjectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
     }
 }

@@ -8,11 +8,12 @@ using System.Diagnostics;
 using System.IO;//files
 using System.Windows.Forms;
 using System.Drawing;
-
+using slae_project;
 namespace ConsoleApp1
 {
-    public class Program
+    public static class Program
     {
+        public static New_FEM new_FEM;
         static Interface I = new Interface();
         static void Main()
         {
@@ -27,11 +28,13 @@ namespace ConsoleApp1
                 Old_Fem old_Fem = new Old_Fem();
                 Console.WriteLine("__________FROM OLD TO NEW__________");
             }
-            New_FEM new_FEM = new New_FEM();
+            new_FEM = new New_FEM();
             TimeSpan timeItTook = DateTime.Now - start;
             Console.WriteLine($"timeItTook = {timeItTook.TotalSeconds}");
 
             I.SaySomeQuote();
+            SharpGL_limbo.SharpGL_Open();
+            SharpGL_limbo.SharpGL_ClickShow();
             Application.Run(SharpGL_limbo.SharpForm);
 
             //I.Pause();

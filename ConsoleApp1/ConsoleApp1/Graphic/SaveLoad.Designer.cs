@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp1
+﻿namespace slae_project
 {
     partial class SaveLoad
     {

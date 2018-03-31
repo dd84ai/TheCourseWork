@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-namespace ConsoleApp1
+namespace slae_project
 {
     public partial class SharpGLForm
     {
@@ -55,8 +55,8 @@ namespace ConsoleApp1
             }
 
 
-            GD.Grid.xCellSize = (int)(maxAppropriateWidth * GD.FontSize * 2.0 / 3.0) + 10;
-            GD.Grid.yCellSize = (int)(GD.FontSize) + 10;
+            GD.Grid.xCellSize = (int)(maxAppropriateWidth * GD.FontSize * 8.0 / 10.0) + 10;
+            GD.Grid.yCellSize = (int)(GD.FontSize) + 14;
             Refresh_Window(false);
 
         }

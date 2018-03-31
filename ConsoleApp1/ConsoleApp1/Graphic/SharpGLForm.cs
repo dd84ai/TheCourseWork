@@ -12,7 +12,8 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.IO;
 using SharpGL;
-namespace ConsoleApp1
+using ConsoleApp1;
+namespace slae_project
 {
     
     /// <summary>
@@ -43,27 +44,9 @@ namespace ConsoleApp1
             openGLControl.DoRender();
 
             //ReadSettings();
-
+            //Wrapped_Refreash_And_Show_Clicker();
             //установить границы скруллбаров и сбросить мышки-местоположение в лево-нижний угол
-            Refresh_Window();
-        }
-        public SharpGLForm()
-        {
-            InitializeComponent();
-            //SharpGLWrappedThread ThreadController = new SharpGLWrappedThread();
-            Visible = true;
-            //Облегчим себе жизнь. Передадим в главную логическую сразу.
-            GD = new GraphicData(openGLControl, this);
-
-            //Manual Рендеринг, мы же не делаем игру, так что смысла в RealTime FPS нету.
-            //Для повторной отрисовки вызовите функцию openGLControl.Refresh();
-            openGLControl.RenderTrigger = RenderTrigger.Manual;
-            openGLControl.DoRender();
-
-            //ReadSettings();
-
-            //установить границы скруллбаров и сбросить мышки-местоположение в лево-нижний угол
-            Refresh_Window();
+            //Refresh_Window();
         }
         /// <summary>
         /// Handles the OpenGLDraw event of the openGLControl control.
@@ -211,7 +194,7 @@ namespace ConsoleApp1
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void openGLControl_OpenGLInitialized(object sender, EventArgs e)
         {
-            //  TODO: Initialise OpenGL here.
+            //  ем TODO: Initialise OpenGL here.
 
             //  Get the OpenGL object.
             OpenGL gl = openGLControl.OpenGL;
@@ -264,14 +247,7 @@ namespace ConsoleApp1
         /// <param name="e"></param>
         private void button_exit_Click(object sender, EventArgs e)
         {
-            this.Visible = false;
-            if (I.Pause() == 46)
-            {
-                Clearer();
-                return;
-            }
-            this.Visible = true;
-            //Clearer();
+            this.Close();
         }
 
         void setMouseData()
@@ -369,17 +345,15 @@ namespace ConsoleApp1
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_test_Click(object sender, EventArgs e)
+        private void button_Refresh_And_Show_Click(object sender, EventArgs e)
         {
-            //GD.List_Of_Objects.Clear();
-            //Refresh_Window();
-
-            I.SaySomeQuote();
+            GD = new GraphicData(openGLControl, this);
+            Wrapped_Refreash_And_Show_Clicker();
         }
-        Interface I = new Interface();
+
         //Asynchronized AsyncTest = new Asynchronized();
 
-
+        
         /// <summary>
         /// Сбрасывает все настройки по умолчанию в менюшке справа
         /// И заодно заново отрисовывает и сбрасывает ваше местоположение
@@ -388,6 +362,10 @@ namespace ConsoleApp1
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void button_reset_Click(object sender, EventArgs e)
+        {
+            Wrapped_Reset_Click();
+        }
+        void Wrapped_Reset_Click()
         {
             trackBar_QuantityAfterPoint.Value = GD.FontQuanitityAfterPoint = 3;
             trackBar_FontSize.Value = 14; GD.FontSize = 14;
@@ -402,8 +380,6 @@ namespace ConsoleApp1
 
             radioButton1_Number_disabled.Checked = false;
             GD.TargetNumber = true;
-
-            GD.TargetNumber = true;
             GD.TargetPlus = true;
             radioButton1_Number_enabled.Checked = true;
             radioButton1_Number_disabled.Checked = false;
@@ -413,8 +389,32 @@ namespace ConsoleApp1
             GD.BoolTextIsEnabledOtherwiseQuads = true;
 
             Refresh_Window(false);
+            AutoSizeCell_Reaction_Wrapped();
             SetScrollBars_to_the_end();
 
+        }
+        void Wrapped_Reverse_Reseter()
+        {
+            GD.FontQuanitityAfterPoint = trackBar_QuantityAfterPoint.Value;
+            GD.FontSize = trackBar_FontSize.Value;
+
+            GD.Grid.xCellSize = 80;
+            GD.Grid.yCellSize = 35;
+
+            if (radioButton1_General.Checked) GD.font_format = GraphicData.FontFormat.G;
+            else if (radioButton2_Double.Checked) GD.font_format = GraphicData.FontFormat.F;
+            else if (radioButton3_Exponential.Checked) GD.font_format = GraphicData.FontFormat.E;
+
+            GD.BoolTextIsEnabledOtherwiseQuads = true;
+
+            GD.TargetNumber = radioButton1_Number_enabled.Checked;
+            GD.TargetPlus = radioButton2_TargetPlus_Enabled.Checked;
+
+            //Refresh_Window(false);
+            //AutoSizeCell_Reaction_Wrapped();
+            //Refresh_Window(true);
+            //SetScrollBars();
+            //SetScrollBars_to_the_end();
         }
         /// <summary>
         /// Эту функцию я подарил юзерам, вызывать после добавления или удаления объектов
@@ -423,9 +423,18 @@ namespace ConsoleApp1
         /// </summary>
         public void Refresh_Window(bool TryInit = true)
         {
-            if (TryInit) GD.RealDraw_Try_To_Initialize = true;
+            if (TryInit)
+            {
+                GD.RealDraw_Try_To_Initialize = true;
+                
+            }
             openGLControl.Refresh();
-            SetScrollBars();
+            if (TryInit) 
+            {
+                AutoSizeCell_Reaction_Wrapped();
+                SetScrollBars();
+            }
+            //openGLControl.Refresh();
             //GD.MoveToEndCursor();
             //openGLControl.Refresh();
         }
@@ -458,8 +467,8 @@ namespace ConsoleApp1
                     //    h_old = ((double)hScrollBar1.Value / GD.Grid.xCellSize_old);
 
                     GD.mouse.BorderEndRecalculate();
-                    hScrollBar1.Minimum = GD.mouse.BorderBegin.x; hScrollBar1.Maximum = Math.Abs(GD.mouse.BorderEnd.x);
-                    vScrollBar1.Minimum = GD.mouse.BorderBegin.y; vScrollBar1.Maximum = Math.Abs(GD.mouse.BorderEnd.y);
+                    hScrollBar1.Minimum = GD.mouse.BorderBegin.x; hScrollBar1.Value = 0; hScrollBar1.Maximum = Math.Abs(GD.mouse.BorderEnd.x);
+                    vScrollBar1.Minimum = GD.mouse.BorderBegin.y; vScrollBar1.Value = 0; vScrollBar1.Maximum = Math.Abs(GD.mouse.BorderEnd.y);
 
                     //(((int)(mouse.ShiftedPosition.x + mouse.true_x) / Grid.xCellSize))
 
@@ -482,14 +491,20 @@ namespace ConsoleApp1
                 {
 
                     GD.mouse.BorderEndRecalculate();
-                    hScrollBar1.Minimum = GD.mouse.BorderBegin.x; hScrollBar1.Maximum = Math.Abs(GD.mouse.BorderEnd.x);
-                    vScrollBar1.Minimum = GD.mouse.BorderBegin.y; vScrollBar1.Maximum = Math.Abs(GD.mouse.BorderEnd.y);
+                    hScrollBar1.Minimum = GD.mouse.BorderBegin.x; hScrollBar1.Value = 0; hScrollBar1.Maximum = Math.Abs(GD.mouse.BorderEnd.x);
+                    vScrollBar1.Minimum = GD.mouse.BorderBegin.y; vScrollBar1.Value = 0; vScrollBar1.Maximum = Math.Abs(GD.mouse.BorderEnd.y);
 
                     if (GD.mouse.BorderEnd.y >= GD.mouse.BorderBegin.y)
                         vScrollBar1.Value = Math.Abs(GD.mouse.BorderEnd.y);
 
                     if (GD.mouse.BorderBegin.x <= GD.mouse.BorderEnd.x)
                         hScrollBar1.Value = Math.Abs(GD.mouse.BorderBegin.x);
+
+                    if (GD.mouse.BorderEnd.y <= openGLControl.Height)
+                        vScrollBar1.Value = Math.Abs(0);
+
+                    if (GD.mouse.BorderEnd.x <= openGLControl.Width)
+                        hScrollBar1.Value = Math.Abs(0);
 
                 }
             }
@@ -679,6 +694,8 @@ namespace ConsoleApp1
         private List<double> stringToMatrixRow(string strRow)
         {
             List<double> row = new List<double>();
+            strRow = strRow.Replace('.', System.Globalization.NumberFormatInfo.CurrentInfo.NumberDecimalSeparator[0]);
+            strRow = strRow.Replace(',', System.Globalization.NumberFormatInfo.CurrentInfo.NumberDecimalSeparator[0]);
             string[] numbers = strRow.Split(new char[] { ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string element in numbers)
             {
@@ -728,7 +745,7 @@ namespace ConsoleApp1
         /// </summary>
         /// <param name="path">Путь к файлу</param>
         /// <param name="numObject">Номер матрицы в массиве объектов</param>
-        public void ReadMatrix(string path, int numObject)
+        public void ReadMatrix(string path, int numObject, bool BoolMessage = true)
         {
             try
             {
@@ -755,13 +772,13 @@ namespace ConsoleApp1
                         GD.List_Of_Objects[numObject] = new GraphicData.GraphicObject(name, object_to_add);
                     }
 
-                    MessageBox.Show(path + " загружен.");
+                    if (BoolMessage) MessageBox.Show(path + " загружен.");
                     Refresh_Window();
                 }
             }
             catch (Exception IdontNeedErrors)
             {
-                MessageBox.Show(IdontNeedErrors.Message, "Файл не обнаружен!");
+                if (BoolMessage) MessageBox.Show(IdontNeedErrors.Message, "Файл не обнаружен!");
             }
 
         }
@@ -802,9 +819,6 @@ namespace ConsoleApp1
             GD.Grid.NetWorkOS_X.Clear();
             GD.Grid.NetWorkOS_Y.Clear();
             GC.Collect(20000);
-            Application.Exit();
-            this.Close();
-            Environment.Exit(0);
         }
 
         private void trackBar_FontSize_ValueChanged(object sender, EventArgs e)
@@ -845,7 +859,14 @@ namespace ConsoleApp1
             if (vnew < vScrollBar1.Minimum) vnew = vScrollBar1.Minimum;
             if (vnew > vScrollBar1.Maximum) vnew = vScrollBar1.Maximum;
 
+            SetScrollBars();
+            if (hnew > hScrollBar1.Maximum)
+                hScrollBar1.Maximum = hnew;
+
             hScrollBar1.Value = hnew;
+            if (vnew > vScrollBar1.Maximum)
+                vScrollBar1.Maximum = vnew;
+
             vScrollBar1.Value = vnew;
 
         }
@@ -872,6 +893,39 @@ namespace ConsoleApp1
                 if (!TeleporterForm.IsDisposed)
                     return true;
             return false;
+        }
+        private class UR_access : UserGuide
+        {
+            public void UserGuide_access(ref List<GraphicData.GraphicObject> List_Of_Objects)
+            {
+                User_Guide_To_Graphic(ref List_Of_Objects);
+            }
+        }
+        static UR_access UR = new UR_access();
+        private void button1_Test_Click(object sender, EventArgs e)
+        {
+            Clear_Window();
+            UR.UserGuide_access(ref GD.List_Of_Objects);
+            Refresh_Window();
+        }
+        public void Wrapped_Refreash_And_Show_Clicker()
+        {
+            Clear_Window();
+
+            if (InsertedInfo.Visualisation) Program.new_FEM.TBF_sparse_straight.Visialize(Program.new_FEM.SSS.Answer);
+            Refresh_Window();
+        }
+        Interface I = new Interface();
+        public void Clear_Window()
+        {
+            GD = new GraphicData(openGLControl, this);
+            Wrapped_Reverse_Reseter();
+            Refresh_Window();
+        }
+
+        private void button1_Log_Click(object sender, EventArgs e)
+        {
+            I.SaySomeQuote();
         }
     }
 }
