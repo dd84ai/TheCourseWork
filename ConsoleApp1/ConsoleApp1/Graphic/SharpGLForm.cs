@@ -917,7 +917,7 @@ namespace slae_project
         {
             Clear_Window();
 
-            if (InsertedInfo.Visualisation) Program.new_FEM.TBF_sparse_straight.Visialize(Program.new_FEM.SSS.Answer);
+            if (InsertedInfo.Visualisation && InsertedInfo.Sparse_Straight) Program.new_FEM.TBF_sparse_straight.Visialize(Program.new_FEM.SSS.Answer);
             Refresh_Window();
         }
         Interface I = new Interface();

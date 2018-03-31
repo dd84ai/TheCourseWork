@@ -66,7 +66,7 @@ namespace ConsoleApp1
             using (StreamWriter outputFile = new StreamWriter("full_" + fname))
             {
                 for (int i = 0; i < Target_vector.Count(); i++)
-                    outputFile.WriteLine(Target_vector[i].ToString("E15").Replace(',', '.'));
+                    outputFile.WriteLine(Target_vector[i].ToString("E20").Replace(',', '.'));
             }
         }
         public static void Show_three_elements_from_vector(List<double> Target_vector)

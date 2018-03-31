@@ -34,26 +34,6 @@ namespace ConsoleApp1
             }
         }
         List<SmallArea> areas = new List<SmallArea>();
-        /*
-        KolObl
-        x0[1]       x1[1] y0[1]       y1[1] muo[1]       j[1] nmat[1]
-        x0[2] x1[2]       y0[2] y1[2]       muo[2] j[2]       nmat[2]
-        ...
-        x0[KolObl] x1[KolObl]  y0[KolObl] y1[KolObl]  muo[KolObl] j[KolObl]  nmat[KolObl]
-
-        x[1] KolX
-        x[2] x[3] ... x[KolX]
-        hXm[1]  hXm[2]  ...  hXm[KolX]
-        dhX[1]  dhX[2]  ...  dhX[KolX]
-        shX[1]  shX[2]  ...  shX[KolX]
-
-        y[1] KolY
-        y[2] y[3] ... y[KolY]
-        hYm[1]  hYm[2]  ...  hYm[KolY]
-        dhY[1]  dhY[2]  ...  dhY[KolY]
-        shY[1]  shY[2]  ...  shY[KolY]
-
-        DoubleToX DoubleToY*/
 
         public Sreda()
         {

@@ -12,7 +12,7 @@ namespace ConsoleApp1
         public static bool Dense = false;
         public static bool Sparse = true;
         public static bool Sparse_Straight = true;
-        public static bool Sparse_MSG = true;
+        public static bool Sparse_MSG = false;
         public static bool Visualisation = true;
 
         public static double U_analit(double x, double y, double z)
